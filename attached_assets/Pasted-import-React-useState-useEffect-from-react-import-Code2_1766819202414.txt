@@ -1,0 +1,740 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Code2, 
+  Smartphone, 
+  Database, 
+  Rocket, 
+  ChevronRight, 
+  Menu, 
+  X, 
+  Github, 
+  Linkedin, 
+  Mail, 
+  CheckCircle2, 
+  ArrowRight, 
+  Terminal, 
+  Cpu, 
+  Globe,
+  Loader2,
+  Check
+} from 'lucide-react';
+
+// --- Firebase Imports ---
+import { initializeApp } from 'firebase/app';
+import { 
+  getAuth, 
+  signInAnonymously, 
+  onAuthStateChanged,
+  signInWithCustomToken 
+} from 'firebase/auth';
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  serverTimestamp 
+} from 'firebase/firestore';
+
+// --- Firebase Configuration & Initialization ---
+const firebaseConfig = JSON.parse(__firebase_config);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+// --- Types & Interfaces ---
+
+type Page = 'home' | 'services' | 'projects' | 'about' | 'contact';
+
+interface ServiceItemProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  technologies: string[];
+}
+
+interface ProjectCardProps {
+  title: string;
+  category: string;
+  description: string;
+  outcome: string;
+  stack: string[];
+  status: 'Live' | 'In Development' | 'Case Study';
+}
+
+// --- Theme Configuration ---
+const THEME = {
+  colors: {
+    accent: 'text-amber-600',
+    accentBg: 'bg-amber-600',
+    accentBorder: 'border-amber-600',
+    accentHover: 'hover:bg-amber-700',
+  }
+};
+
+// --- Shared Components ---
+
+const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
+  <div className="mb-12 md:mb-16">
+    {subtitle && (
+      <span className={`text-sm font-mono tracking-wider uppercase ${THEME.colors.accent} mb-3 block`}>
+        {subtitle}
+      </span>
+    )}
+    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{children}</h2>
+    <div className={`h-1 w-20 ${THEME.colors.accentBg} mt-6`}></div>
+  </div>
+);
+
+const Button = ({ 
+  children, 
+  variant = 'primary', 
+  onClick, 
+  className = '',
+  disabled = false,
+  type = 'button'
+}: { 
+  children: React.ReactNode; 
+  variant?: 'primary' | 'secondary' | 'outline'; 
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit';
+}) => {
+  const baseStyles = "inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed";
+  
+  const variants = {
+    primary: `${THEME.colors.accentBg} text-white ${THEME.colors.accentHover} shadow-lg shadow-amber-900/20`,
+    secondary: "bg-white text-neutral-900 hover:bg-neutral-100",
+    outline: `border border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white bg-transparent`
+  };
+
+  return (
+    <button type={type} onClick={onClick} disabled={disabled} className={`${baseStyles} ${variants[variant]} ${className}`}>
+      {children}
+    </button>
+  );
+};
+
+const Card = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
+  <div className={`bg-neutral-900 border border-neutral-800 p-8 hover:border-neutral-700 transition-colors duration-300 ${className}`}>
+    {children}
+  </div>
+);
+
+const Badge = ({ children }: { children: React.ReactNode }) => (
+  <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-neutral-800 text-neutral-300 border border-neutral-700">
+    {children}
+  </span>
+);
+
+// --- Page Content Components ---
+
+const ServiceCard = ({ icon: Icon, title, description, technologies }: ServiceItemProps) => (
+  <Card className="group h-full flex flex-col">
+    <div className={`w-12 h-12 ${THEME.colors.accentBg} bg-opacity-10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+      <Icon className={`w-6 h-6 ${THEME.colors.accent}`} />
+    </div>
+    <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+    <p className="text-neutral-400 mb-6 flex-grow leading-relaxed">{description}</p>
+    <div>
+      <p className="text-xs font-mono text-neutral-500 uppercase tracking-wide mb-3">Tech Stack</p>
+      <div className="flex flex-wrap gap-2">
+        {technologies.map((tech) => (
+          <Badge key={tech}>{tech}</Badge>
+        ))}
+      </div>
+    </div>
+  </Card>
+);
+
+const ProjectCard = ({ title, category, description, outcome, stack, status }: ProjectCardProps) => (
+  <div className="flex flex-col border-l-2 border-neutral-800 hover:border-amber-600 pl-8 py-2 transition-colors duration-300">
+    <div className="flex items-center gap-3 mb-2">
+      <span className={`text-xs font-mono uppercase tracking-widest ${THEME.colors.accent}`}>{category}</span>
+      <span className="w-1 h-1 rounded-full bg-neutral-600"></span>
+      <span className="text-xs text-neutral-500">{status}</span>
+    </div>
+    <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
+    <p className="text-neutral-400 mb-4 max-w-2xl">{description}</p>
+    
+    <div className="mb-4">
+      <strong className="text-white text-sm block mb-1">Key Outcome:</strong>
+      <p className="text-neutral-300 text-sm">{outcome}</p>
+    </div>
+
+    <div className="flex flex-wrap gap-2 mt-auto">
+      {stack.map((tech) => (
+        <span key={tech} className="text-xs font-mono text-neutral-500">#{tech}</span>
+      ))}
+    </div>
+  </div>
+);
+
+// --- Main Page Sections ---
+
+const HomePage = ({ navigateTo }: { navigateTo: (page: Page) => void }) => (
+  <div className="animate-fade-in">
+    {/* Hero Section */}
+    <section className="relative pt-20 pb-32 md:pt-32 md:pb-48 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-neutral-900 to-transparent opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 mb-8">
+            <span className={`w-2 h-2 rounded-full ${THEME.colors.accentBg} animate-pulse`}></span>
+            <span className="text-xs font-mono text-neutral-400">Accepting New Projects for Q1 2026</span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-8">
+            Engineering <span className="text-neutral-500">Digital Resilience.</span>
+          </h1>
+          <p className="text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
+            Brown Fish Technologies builds scalable, mission-critical software for ambitious startups and enterprises. We prioritize architecture over aesthetics and performance over promises.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button onClick={() => navigateTo('contact')}>Book Technical Consultation</Button>
+            <Button variant="outline" onClick={() => navigateTo('projects')}>View Case Studies</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Value Props */}
+    <section className="py-24 bg-neutral-900 border-y border-neutral-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {[
+            {
+              icon: Terminal,
+              title: "Technical Depth",
+              text: "We don't rely on drag-and-drop builders. We write clean, testable code designed to scale from day one."
+            },
+            {
+              icon: CheckCircle2,
+              title: "Transparent Process",
+              text: "No black boxes. You get direct access to engineers, weekly sprints, and honest feasibility assessments."
+            },
+            {
+              icon: Globe,
+              title: "Global Standards",
+              text: "Building for US, UK, and UAE markets requires understanding compliance, speed, and reliability. We deliver that."
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="flex flex-col items-start">
+              <item.icon className={`w-8 h-8 ${THEME.colors.accent} mb-4`} />
+              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+              <p className="text-neutral-400 leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Process Preview */}
+    <section className="py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+          <SectionTitle subtitle="How We Work">Our Engineering Process</SectionTitle>
+          <Button variant="outline" onClick={() => navigateTo('services')} className="mb-12 md:mb-0">Explore Services <ArrowRight className="ml-2 w-4 h-4" /></Button>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {['Discovery', 'Architecture', 'Development', 'QA & Audit', 'Deployment'].map((step, i) => (
+            <div key={step} className="relative group">
+              <div className="p-6 border border-neutral-800 bg-neutral-900 hover:border-amber-900/50 transition-colors h-full">
+                <span className="text-4xl font-bold text-neutral-800 group-hover:text-amber-900/40 transition-colors absolute top-4 right-4">0{i + 1}</span>
+                <h4 className="text-white font-medium relative z-10 pt-8">{step}</h4>
+              </div>
+              {i < 4 && (
+                <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2 z-20">
+                  <ChevronRight className="w-4 h-4 text-neutral-700" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+);
+
+const ServicesPage = () => (
+  <div className="animate-fade-in py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionTitle subtitle="Our Expertise">Technical Services</SectionTitle>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <ServiceCard 
+          icon={Smartphone}
+          title="Mobile Application Development"
+          description="Native-performance cross-platform apps. We don't just wrap websites; we build responsive, offline-first mobile experiences that pass App Store reviews on the first try."
+          technologies={['Flutter', 'React Native', 'iOS/Swift', 'Android/Kotlin']}
+        />
+        <ServiceCard 
+          icon={Code2}
+          title="Modern Web Applications"
+          description="SPA and SSR applications built for speed and SEO. From complex dashboards to high-traffic consumer platforms, we handle the full frontend lifecycle."
+          technologies={['React', 'Next.js', 'TypeScript', 'Tailwind CSS']}
+        />
+        <ServiceCard 
+          icon={Database}
+          title="Backend & API Architecture"
+          description="Robust server-side solutions. We design database schemas, REST/GraphQL APIs, and microservices that can handle spikes in load without crashing."
+          technologies={['Node.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS']}
+        />
+        <ServiceCard 
+          icon={Rocket}
+          title="MVP for Startups"
+          description="Rapid prototyping for validation. We help you cut feature creep and launch a solid, scalable Minimum Viable Product in 8-12 weeks."
+          technologies={['Supabase', 'Firebase', 'Next.js', 'Vercel']}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+const ProjectsPage = () => (
+  <div className="animate-fade-in py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionTitle subtitle="Selected Work">Case Studies</SectionTitle>
+      
+      <div className="space-y-12">
+        <ProjectCard 
+          title="FinTrack - Corporate Expense Management"
+          category="SaaS Platform"
+          status="Live"
+          description="A UK-based fintech startup needed to replace their legacy Angular frontend. We rebuilt the dashboard using React and Next.js, implementing real-time data visualization for expense tracking."
+          outcome="Reduced initial load time by 65%. Onboarded 50+ enterprise clients in Q1."
+          stack={['React', 'TypeScript', 'D3.js', 'Node.js']}
+        />
+        
+        <ProjectCard 
+          title="LogiChain - Supply Chain Logistics"
+          category="Mobile App"
+          status="Live"
+          description="Built an offline-first mobile application for warehouse drivers in the UAE to track shipments in areas with poor connectivity. Synced data automatically when connection was restored."
+          outcome="Zero data loss reported during 3 months of beta testing. 4.8/5 App Store rating."
+          stack={['Flutter', 'Firebase', 'Google Maps API']}
+        />
+        
+        <ProjectCard 
+          title="HealthPulse - Telemedicine MVP"
+          category="Healthcare"
+          status="Case Study"
+          description="Developed a HIPAA-compliant video consultation platform for a US startup. Included secure document sharing, prescription management, and calendar scheduling."
+          outcome="Startup secured Series A funding ($4M) based on this MVP."
+          stack={['Next.js', 'WebRTC', 'PostgreSQL', 'Stripe Connect']}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+const AboutPage = () => (
+  <div className="animate-fade-in py-20 md:py-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <SectionTitle subtitle="Who We Are">Engineers, Not Agencies.</SectionTitle>
+          <p className="text-xl text-neutral-300 mb-6 font-light">
+            Brown Fish Technologies was founded on a simple premise: Software quality shouldn't be a lottery.
+          </p>
+          <div className="space-y-6 text-neutral-400 leading-relaxed">
+            <p>
+              We are a boutique software development firm. We are not a massive outsourcing farm with thousands of junior developers. When you hire us, you hire a dedicated squad of senior engineers who understand business logic as well as they understand code.
+            </p>
+            <p>
+              Our "Brown Fish" philosophy represents resilience and adaptability. In the murky waters of changing requirements and complex tech stacks, we thrive.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-4xl font-bold text-white mb-2">100%</h4>
+              <p className="text-sm text-neutral-500 uppercase tracking-wide">In-House Code</p>
+            </div>
+            <div>
+              <h4 className="text-4xl font-bold text-white mb-2">3+</h4>
+              <p className="text-sm text-neutral-500 uppercase tracking-wide">Years Avg Engagement</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-neutral-900 border border-neutral-800 p-8 md:p-12">
+          <h3 className="text-xl font-bold text-white mb-8">Our Core Principles</h3>
+          <ul className="space-y-6">
+            {[
+              { title: "Strict Type Safety", text: "We use TypeScript in strict mode. No 'any' types allowed. This catches bugs before they reach production." },
+              { title: "Documentation First", text: "Code without documentation is technical debt. We hand over comprehensive architectural docs." },
+              { title: "Direct Communication", text: "You speak with the people building your product, not just account managers." }
+            ].map((item, i) => (
+              <li key={i} className="flex gap-4">
+                <div className={`mt-1 min-w-[24px] h-6 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-mono ${THEME.colors.accent}`}>
+                  {i + 1}
+                </div>
+                <div>
+                  <strong className="text-white block mb-1">{item.title}</strong>
+                  <p className="text-neutral-400 text-sm">{item.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const ContactPage = ({ user }: { user: any }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    type: 'Web Application Development',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return; // Guard against unauthed submission
+
+    setStatus('submitting');
+
+    try {
+      // Save to Firestore (Simulating "Storage")
+      // Strict path: /artifacts/{appId}/public/data/enquiries
+      await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'enquiries'), {
+        ...formData,
+        timestamp: serverTimestamp(),
+        userId: user.uid
+      });
+
+      setStatus('success');
+      setFormData({ name: '', email: '', type: 'Web Application Development', message: '' });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus('idle'), 5000);
+
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      setStatus('error');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
+
+  return (
+    <div className="animate-fade-in py-20 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle subtitle="Start a Conversation">Let's Build Something Scalable.</SectionTitle>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div>
+            <p className="text-xl text-neutral-300 mb-8">
+              Tell us about your project constraints, timeline, and goals. We'll give you a straight answer on feasibility and cost.
+            </p>
+            
+            <div className="space-y-6 mb-12">
+              <a href="mailto:hello@brownfish.tech" className="flex items-center gap-4 text-neutral-400 hover:text-white transition-colors">
+                <Mail className="w-5 h-5" />
+                <span>hello@brownfish.tech</span>
+              </a>
+              <div className="flex items-center gap-4 text-neutral-400">
+                <Github className="w-5 h-5" />
+                <span>github.com/brownfish-tech</span>
+              </div>
+              <div className="flex items-center gap-4 text-neutral-400">
+                <Linkedin className="w-5 h-5" />
+                <span>linkedin.com/company/brown-fish</span>
+              </div>
+            </div>
+
+            <div className="p-6 bg-neutral-900 border border-neutral-800">
+              <h4 className="font-bold text-white mb-2">Not ready to quote?</h4>
+              <p className="text-sm text-neutral-400">
+                Book a 15-minute discovery call to see if we're a good fit. No sales pressure, just engineering chat.
+              </p>
+            </div>
+          </div>
+
+          <form className="space-y-6 relative" onSubmit={handleSubmit}>
+             {status === 'success' && (
+              <div className="absolute inset-0 bg-neutral-950/90 flex flex-col items-center justify-center z-10 border border-green-900 rounded">
+                <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mb-4">
+                  <Check className="w-8 h-8 text-green-500" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">Message Received</h3>
+                <p className="text-neutral-400 text-center max-w-xs">
+                  Thanks for reaching out. Our engineering team will review your enquiry and respond within 24 hours.
+                </p>
+                <button 
+                  type="button" 
+                  onClick={() => setStatus('idle')}
+                  className="mt-6 text-sm text-neutral-500 hover:text-white underline"
+                >
+                  Send another message
+                </button>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium text-neutral-400">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-none px-4 py-3 text-white focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none transition-all" 
+                  placeholder="Jane Doe" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-neutral-400">Work Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-none px-4 py-3 text-white focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none transition-all" 
+                  placeholder="jane@company.com" 
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="type" className="text-sm font-medium text-neutral-400">Project Type</label>
+              <select 
+                id="type" 
+                value={formData.type}
+                onChange={handleChange}
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-none px-4 py-3 text-white focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none transition-all appearance-none"
+              >
+                <option>Web Application Development</option>
+                <option>Mobile App (iOS/Android)</option>
+                <option>Backend/API Development</option>
+                <option>MVP Build</option>
+                <option>Legacy Code Audit</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="message" className="text-sm font-medium text-neutral-400">Project Details</label>
+              <textarea 
+                id="message" 
+                rows={5} 
+                required
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-none px-4 py-3 text-white focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none transition-all" 
+                placeholder="Briefly describe what you're building..."
+              ></textarea>
+            </div>
+
+            <Button 
+              type="submit" 
+              className="w-full md:w-auto min-w-[160px]"
+              disabled={status === 'submitting'}
+            >
+              {status === 'submitting' ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending...</>
+              ) : (
+                'Send Inquiry'
+              )}
+            </Button>
+            
+            {status === 'error' && (
+              <p className="text-red-500 text-sm mt-2">
+                Something went wrong. Please try again or email us directly.
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Layout & App Entry ---
+
+const Footer = ({ navigateTo }: { navigateTo: (page: Page) => void }) => (
+  <footer className="bg-neutral-950 border-t border-neutral-900 pt-16 pb-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="col-span-1 md:col-span-2">
+          <div className="flex items-center gap-2 mb-6">
+             <div className="w-8 h-8 rounded bg-amber-700 flex items-center justify-center">
+               <Cpu className="text-white w-5 h-5" />
+             </div>
+             <span className="text-xl font-bold text-white tracking-tight">BROWN FISH</span>
+          </div>
+          <p className="text-neutral-500 max-w-sm mb-6">
+            Professional software development agency specializing in scalable React and Node.js ecosystems.
+          </p>
+          <div className="flex gap-4">
+             <Github className="w-5 h-5 text-neutral-600 hover:text-white cursor-pointer" />
+             <Linkedin className="w-5 h-5 text-neutral-600 hover:text-white cursor-pointer" />
+          </div>
+        </div>
+        
+        <div>
+          <h4 className="text-white font-bold mb-6">Services</h4>
+          <ul className="space-y-3 text-neutral-500 text-sm">
+            <li className="hover:text-amber-600 cursor-pointer">Mobile Development</li>
+            <li className="hover:text-amber-600 cursor-pointer">Web Applications</li>
+            <li className="hover:text-amber-600 cursor-pointer">Cloud Infrastructure</li>
+            <li className="hover:text-amber-600 cursor-pointer">MVP Development</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 className="text-white font-bold mb-6">Company</h4>
+          <ul className="space-y-3 text-neutral-500 text-sm">
+            <li onClick={() => navigateTo('about')} className="hover:text-amber-600 cursor-pointer">About Us</li>
+            <li onClick={() => navigateTo('projects')} className="hover:text-amber-600 cursor-pointer">Case Studies</li>
+            <li onClick={() => navigateTo('contact')} className="hover:text-amber-600 cursor-pointer">Contact</li>
+            <li className="hover:text-amber-600 cursor-pointer">Privacy Policy</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div className="pt-8 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
+        <p>&copy; {new Date().getFullYear()} Brown Fish Technologies. All rights reserved.</p>
+        <p className="mt-2 md:mt-0 font-mono">Designed & Engineered in New Delhi.</p>
+      </div>
+    </div>
+  </footer>
+);
+
+export default function App() {
+  const [activePage, setActivePage] = useState<Page>('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  // --- Auth Initialization ---
+  useEffect(() => {
+    const initAuth = async () => {
+      if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+        await signInWithCustomToken(auth, __initial_auth_token);
+      } else {
+        await signInAnonymously(auth);
+      }
+    };
+    initAuth();
+    
+    const unsubscribe = onAuthStateChanged(auth, setUser);
+    return () => unsubscribe();
+  }, []);
+
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsMenuOpen(false);
+  }, [activePage]);
+
+  const navLinks: { label: string; value: Page }[] = [
+    { label: 'Home', value: 'home' },
+    { label: 'Services', value: 'services' },
+    { label: 'Projects', value: 'projects' },
+    { label: 'About', value: 'about' },
+  ];
+
+  return (
+    <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-amber-900 selection:text-white">
+      {/* Navigation */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${scrolled ? 'bg-neutral-950/90 backdrop-blur-md border-neutral-800 py-4' : 'bg-transparent border-transparent py-6'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center">
+            {/* Logo */}
+            <div 
+              className="flex items-center gap-3 cursor-pointer group" 
+              onClick={() => setActivePage('home')}
+            >
+              <div className={`w-10 h-10 rounded bg-amber-700 flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg shadow-amber-900/20`}>
+                 {/* Replaced Image with Icon for reliability in preview */}
+                 <Cpu className="text-white w-6 h-6" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold text-white leading-none tracking-tight">BROWN FISH</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono">Technologies</span>
+              </div>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <button
+                  key={link.value}
+                  onClick={() => setActivePage(link.value)}
+                  className={`text-sm font-medium transition-colors hover:text-white ${activePage === link.value ? 'text-white' : 'text-neutral-400'}`}
+                >
+                  {link.label}
+                </button>
+              ))}
+              <Button onClick={() => setActivePage('contact')} className="!py-2 !px-4 text-sm">
+                Get in Touch
+              </Button>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              className="md:hidden text-white p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-neutral-900 border-b border-neutral-800 py-4 px-4 flex flex-col gap-4 shadow-2xl">
+            {navLinks.map((link) => (
+              <button
+                key={link.value}
+                onClick={() => setActivePage(link.value)}
+                className={`text-left text-lg font-medium py-2 px-4 rounded hover:bg-neutral-800 ${activePage === link.value ? 'text-amber-500' : 'text-neutral-300'}`}
+              >
+                {link.label}
+              </button>
+            ))}
+            <button 
+              onClick={() => setActivePage('contact')}
+              className="text-left text-lg font-medium py-2 px-4 rounded text-amber-500 hover:bg-neutral-800"
+            >
+              Contact
+            </button>
+          </div>
+        )}
+      </nav>
+
+      {/* Main Content */}
+      <main className="min-h-screen pt-20">
+        {activePage === 'home' && <HomePage navigateTo={setActivePage} />}
+        {activePage === 'services' && <ServicesPage />}
+        {activePage === 'projects' && <ProjectsPage />}
+        {activePage === 'about' && <AboutPage />}
+        {activePage === 'contact' && <ContactPage user={user} />}
+      </main>
+
+      <Footer navigateTo={setActivePage} />
+    </div>
+  );
+}
