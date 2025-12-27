@@ -1,5 +1,5 @@
-import { Terminal, CheckCircle2, Globe, ArrowRight, ChevronRight } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { Terminal, CheckCircle2, Globe, ArrowRight, ChevronRight, Code, Zap, Shield, Users } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
 const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
@@ -15,8 +15,6 @@ const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subti
 );
 
 export default function Home() {
-  const [_, setLocation] = useLocation();
-
   return (
     <div className="animate-in fade-in duration-500">
       {/* Hero Section */}
@@ -111,6 +109,134 @@ export default function Home() {
                     <ChevronRight className="w-6 h-6 text-neutral-800" />
                   </div>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-24 bg-neutral-900/50 border-y border-neutral-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle subtitle="Why Choose Us">What Sets Us Apart</SectionTitle>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="flex gap-4">
+              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0">
+                <Code className="w-6 h-6 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Production-Ready Code</h3>
+                <p className="text-neutral-400 leading-relaxed">Every line of code follows industry best practices. We use automated testing, code review protocols, and continuous integration to ensure zero technical debt.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0">
+                <Zap className="w-6 h-6 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Lightning-Fast Performance</h3>
+                <p className="text-neutral-400 leading-relaxed">Load times under 2 seconds. Database queries optimized. CDN integration. We obsess over milliseconds because they matter to your users.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0">
+                <Shield className="w-6 h-6 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Security-First Architecture</h3>
+                <p className="text-neutral-400 leading-relaxed">HTTPS everywhere. Encrypted at rest and in transit. Regular penetration testing. Compliance with GDPR, HIPAA, and SOC 2 standards.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0">
+                <Users className="w-6 h-6 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Dedicated Team Partnership</h3>
+                <p className="text-neutral-400 leading-relaxed">Not a vendor. A partner. Your dedicated team stays with you from launch through scaling. Monthly strategy sessions. Proactive optimization.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle subtitle="Our Arsenal">Technology Stack</SectionTitle>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg">
+              <h4 className="text-lg font-bold text-white mb-4">Frontend</h4>
+              <ul className="space-y-3 text-neutral-400">
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> React / Next.js</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> TypeScript</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Tailwind CSS</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Framer Motion</li>
+              </ul>
+            </div>
+
+            <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg">
+              <h4 className="text-lg font-bold text-white mb-4">Backend</h4>
+              <ul className="space-y-3 text-neutral-400">
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Node.js / Express</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> PostgreSQL</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Redis</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> GraphQL</li>
+              </ul>
+            </div>
+
+            <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg">
+              <h4 className="text-lg font-bold text-white mb-4">DevOps & Infra</h4>
+              <ul className="space-y-3 text-neutral-400">
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> AWS / GCP</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Docker & Kubernetes</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> CI/CD Pipelines</li>
+                <li className="flex items-center gap-2"><span className="w-2 h-2 bg-amber-600 rounded-full"></span> Monitoring & Logging</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-r from-neutral-900 to-neutral-800 border-y border-neutral-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Build Something Extraordinary?</h2>
+          <p className="text-xl text-neutral-400 mb-10 leading-relaxed">
+            Whether you're validating an MVP or scaling an enterprise system, we have the expertise to turn your vision into reality.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white border-0 text-base h-14 px-8">
+              <Link href="/contact">
+                Start Your Project Today
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-neutral-600 text-neutral-300 hover:border-amber-600 hover:text-white text-base h-14 px-8">
+              <Link href="/projects">
+                See What We've Built
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Trusted by Industry Leaders</h2>
+            <p className="text-neutral-400 max-w-2xl mx-auto">Over 50+ startups and enterprises trust us with their critical infrastructure</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-center">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="bg-neutral-900 border border-neutral-800 p-6 rounded-lg flex items-center justify-center h-20 hover:border-amber-600/30 transition-colors">
+                <div className="text-neutral-600 font-mono text-sm">Client {i}</div>
               </div>
             ))}
           </div>

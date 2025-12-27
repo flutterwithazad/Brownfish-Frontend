@@ -89,7 +89,6 @@ export default function Contact() {
   useEffect(() => {
     if (phoneValue.length > 0) {
       try {
-        // Try to parse with the currently selected country first
         const countryCode = form.getValues("countryCode");
         const parsed = parsePhoneNumber(phoneValue, countryCode as any);
         
@@ -98,7 +97,6 @@ export default function Contact() {
           form.setValue("countryCode", parsed.country);
         }
       } catch (error) {
-        // If parsing fails, try to detect from international format
         try {
           const parsed = parsePhoneNumber(phoneValue);
           if (parsed && parsed.country) {
@@ -106,7 +104,7 @@ export default function Contact() {
             form.setValue("countryCode", parsed.country);
           }
         } catch (e) {
-          // Could not detect, user can select manually
+          // Could not detect
         }
       }
     }
@@ -138,6 +136,16 @@ export default function Contact() {
             <div className="space-y-8">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-1">Call Us</h4>
+                  <a href="tel:+919182234149804" className="text-neutral-400 hover:text-amber-500 transition-colors">+91 7827149804</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
@@ -148,23 +156,14 @@ export default function Contact() {
 
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold mb-1">Call Us</h4>
-                  <a href="tel:+15550000000" className="text-neutral-400 hover:text-amber-500 transition-colors">+1 (555) 000-0000</a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">HQ</h4>
                   <p className="text-neutral-400">
-                    123 Tech District Blvd<br />
-                    New York, NY 10013
+                    Flat 101 Tigri DDA Flats<br />
+                    South Delhi - 110080<br />
+                    India
                   </p>
                 </div>
               </div>
@@ -221,14 +220,14 @@ export default function Contact() {
                 />
 
                 {/* Phone Number with Country Detection */}
-                <div>
-                  <FormLabel className="text-neutral-300 block mb-3">Phone Number</FormLabel>
+                <div className="space-y-3">
                   <div className="flex gap-3">
                     <FormField
                       control={form.control}
                       name="countryCode"
                       render={({ field }) => (
                         <FormItem className="w-32 shrink-0">
+                          <FormLabel className="text-neutral-300">Country</FormLabel>
                           <Select value={field.value} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
@@ -256,9 +255,10 @@ export default function Contact() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem className="flex-1">
+                          <FormLabel className="text-neutral-300">Phone Number</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="555 123 4567" 
+                              placeholder="7827149804" 
                               className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20"
                               value={phoneValue}
                               onChange={(e) => {
@@ -274,7 +274,7 @@ export default function Contact() {
                   </div>
                   
                   {detectedCountry && detectedCountry === form.getValues("countryCode") && (
-                    <div className="mt-2 flex items-center gap-2 text-xs text-amber-500">
+                    <div className="flex items-center gap-2 text-xs text-amber-500">
                       <Globe className="w-3 h-3" />
                       <span>Country auto-detected: {allCountries.find(c => c.code === detectedCountry)?.name}</span>
                     </div>
