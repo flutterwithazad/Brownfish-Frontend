@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,6 +6,8 @@ import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useState, useEffect } from "react";
+import { parsePhoneNumber, getCountries, getCountryCallingCode } from "libphonenumber-js";
 import {
   Form,
   FormControl,
@@ -14,6 +16,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
   <div className="mb-12">
@@ -35,32 +44,83 @@ const formSchema = z.object({
     message: "Please enter a valid email address.",
   }),
   company: z.string().optional(),
+  phone: z.string().min(5, {
+    message: "Please enter a valid phone number.",
+  }),
+  countryCode: z.string().min(1, {
+    message: "Please select a country.",
+  }),
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
 });
 
+// Get all available countries with their codes
+const getAllCountries = () => {
+  const countries = getCountries();
+  return countries
+    .map((country) => ({
+      code: country,
+      name: new Intl.DisplayNames(["en"], { type: "region" }).of(country) || country,
+      callingCode: `+${getCountryCallingCode(country)}`,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+};
+
 export default function Contact() {
   const { toast } = useToast();
-  
+  const [detectedCountry, setDetectedCountry] = useState<string>("");
+  const [phoneValue, setPhoneValue] = useState("");
+  const allCountries = getAllCountries();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
       company: "",
+      phone: "",
+      countryCode: detectedCountry,
       message: "",
     },
   });
 
+  // Auto-detect country from phone number
+  useEffect(() => {
+    if (phoneValue.length > 0) {
+      try {
+        // Try to parse with the currently selected country first
+        const countryCode = form.getValues("countryCode");
+        const parsed = parsePhoneNumber(phoneValue, countryCode as any);
+        
+        if (parsed && parsed.country) {
+          setDetectedCountry(parsed.country);
+          form.setValue("countryCode", parsed.country);
+        }
+      } catch (error) {
+        // If parsing fails, try to detect from international format
+        try {
+          const parsed = parsePhoneNumber(phoneValue);
+          if (parsed && parsed.country) {
+            setDetectedCountry(parsed.country);
+            form.setValue("countryCode", parsed.country);
+          }
+        } catch (e) {
+          // Could not detect, user can select manually
+        }
+      }
+    }
+  }, [phoneValue, form]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Mock form submission
     console.log(values);
     toast({
       title: "Message Sent",
       description: "We've received your message and will get back to you within 24 hours.",
     });
     form.reset();
+    setPhoneValue("");
+    setDetectedCountry("");
   }
 
   return (
@@ -159,6 +219,67 @@ export default function Contact() {
                     </FormItem>
                   )}
                 />
+
+                {/* Phone Number with Country Detection */}
+                <div>
+                  <FormLabel className="text-neutral-300 block mb-3">Phone Number</FormLabel>
+                  <div className="flex gap-3">
+                    <FormField
+                      control={form.control}
+                      name="countryCode"
+                      render={({ field }) => (
+                        <FormItem className="w-32 shrink-0">
+                          <Select value={field.value} onValueChange={field.onChange}>
+                            <FormControl>
+                              <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
+                                <SelectValue placeholder="Select" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="bg-neutral-800 border-neutral-700 max-h-60">
+                              {allCountries.map((country) => (
+                                <SelectItem key={country.code} value={country.code} className="text-white hover:bg-neutral-700">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-amber-600 font-mono">{country.callingCode}</span>
+                                    <span className="text-neutral-400 text-sm">{country.code}</span>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormControl>
+                            <Input 
+                              placeholder="555 123 4567" 
+                              className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20"
+                              value={phoneValue}
+                              onChange={(e) => {
+                                setPhoneValue(e.target.value);
+                                field.onChange(e);
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
+                  {detectedCountry && detectedCountry === form.getValues("countryCode") && (
+                    <div className="mt-2 flex items-center gap-2 text-xs text-amber-500">
+                      <Globe className="w-3 h-3" />
+                      <span>Country auto-detected: {allCountries.find(c => c.code === detectedCountry)?.name}</span>
+                    </div>
+                  )}
+                </div>
 
                 <FormField
                   control={form.control}
