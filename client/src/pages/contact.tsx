@@ -67,11 +67,39 @@ const getAllCountries = () => {
     .sort((a, b) => a.name.localeCompare(b.name));
 };
 
+// Detect user's country from browser locale or timezone
+const detectUserCountry = (): string => {
+  try {
+    // Try to get from browser language/locale
+    const locale = navigator.language || (navigator as any).userLanguage;
+    if (locale && locale.includes("-")) {
+      const countryCode = locale.split("-")[1].toUpperCase();
+      const allCountries = getCountries();
+      if (allCountries.includes(countryCode)) {
+        return countryCode;
+      }
+    }
+  } catch (e) {
+    // Fallback if locale detection fails
+  }
+  
+  // Default to US if detection fails
+  return "US";
+};
+
 export default function Contact() {
   const { toast } = useToast();
   const [detectedCountry, setDetectedCountry] = useState<string>("");
   const [phoneValue, setPhoneValue] = useState("");
+  const [userCountry, setUserCountry] = useState<string>("");
   const allCountries = getAllCountries();
+
+  // Auto-detect user's country on component mount
+  useEffect(() => {
+    const detected = detectUserCountry();
+    setUserCountry(detected);
+    setDetectedCountry(detected);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,10 +108,17 @@ export default function Contact() {
       email: "",
       company: "",
       phone: "",
-      countryCode: detectedCountry,
+      countryCode: userCountry,
       message: "",
     },
   });
+
+  // Update form when userCountry is detected
+  useEffect(() => {
+    if (userCountry) {
+      form.setValue("countryCode", userCountry);
+    }
+  }, [userCountry, form]);
 
   // Auto-detect country from phone number
   useEffect(() => {
@@ -118,7 +153,9 @@ export default function Contact() {
     });
     form.reset();
     setPhoneValue("");
-    setDetectedCountry("");
+    setDetectedCountry(userCountry);
+    const detected = detectUserCountry();
+    form.setValue("countryCode", detected);
   }
 
   return (
@@ -273,10 +310,10 @@ export default function Contact() {
                     />
                   </div>
                   
-                  {detectedCountry && detectedCountry === form.getValues("countryCode") && (
+                  {detectedCountry && (
                     <div className="flex items-center gap-2 text-xs text-amber-500">
                       <Globe className="w-3 h-3" />
-                      <span>Country auto-detected: {allCountries.find(c => c.code === detectedCountry)?.name}</span>
+                      <span>Detected: {allCountries.find(c => c.code === detectedCountry)?.name}</span>
                     </div>
                   )}
                 </div>

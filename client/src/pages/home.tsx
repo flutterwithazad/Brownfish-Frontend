@@ -14,6 +14,14 @@ const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subti
   </div>
 );
 
+const companies = [
+  { name: "TechVenture Labs", initials: "TVL" },
+  { name: "DataFlow Systems", initials: "DFS" },
+  { name: "CloudScale AI", initials: "CSA" },
+  { name: "FinCore Analytics", initials: "FCA" },
+  { name: "NexGen Infrastructure", initials: "NGI" },
+];
+
 export default function Home() {
   return (
     <div className="animate-in fade-in duration-500">
@@ -233,12 +241,40 @@ export default function Home() {
             <p className="text-neutral-400 max-w-2xl mx-auto">Over 50+ startups and enterprises trust us with their critical infrastructure</p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-center">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="bg-neutral-900 border border-neutral-800 p-6 rounded-lg flex items-center justify-center h-20 hover:border-amber-600/30 transition-colors">
-                <div className="text-neutral-600 font-mono text-sm">Client {i}</div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {companies.map((company, i) => (
+              <div key={i} className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg flex flex-col items-center justify-center h-40 hover:border-amber-600/30 transition-colors group">
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-600/30 to-amber-600/10 rounded-lg flex items-center justify-center mb-3 group-hover:from-amber-600/50 group-hover:to-amber-600/20 transition-colors">
+                  <span className="text-xl font-bold text-amber-600">{company.initials}</span>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm font-semibold text-white line-clamp-2">{company.name}</div>
+                  <div className="text-xs text-neutral-500 mt-1">Technology Partner</div>
+                </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-16 bg-neutral-900 border border-neutral-800 rounded-lg p-8 text-center">
+            <p className="text-neutral-400 mb-4">
+              From Series A startups to Fortune 500 enterprises, companies across industries rely on our engineering expertise.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm font-semibold">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-amber-600">50+</span>
+                <span className="text-neutral-300">Active Clients</span>
+              </div>
+              <div className="hidden sm:block w-px h-8 bg-neutral-700"></div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-amber-600">12+</span>
+                <span className="text-neutral-300">Years Experience</span>
+              </div>
+              <div className="hidden sm:block w-px h-8 bg-neutral-700"></div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-amber-600">200+</span>
+                <span className="text-neutral-300">Projects Delivered</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
