@@ -1,8 +1,9 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, Terminal, ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X, ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import logoImg from "@assets/image_1766825735711.png";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -23,9 +24,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-amber-600 rounded flex items-center justify-center group-hover:bg-amber-700 transition-colors">
-                <Terminal className="text-white w-6 h-6" />
-              </div>
+              <img 
+                src={logoImg} 
+                alt="Brown Fish Technologies" 
+                className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
+              />
               <div className="flex flex-col">
                 <span className="font-display font-bold text-lg leading-tight tracking-tight text-white">
                   Brown Fish
@@ -39,14 +42,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navItems.map((item) => (
-                <Link 
-                  key={item.href} 
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-amber-500 ${
-                    location === item.href ? "text-amber-500" : "text-neutral-400"
-                  }`}
-                >
-                  {item.label}
+                <Link key={item.href} href={item.href}>
+                  <a
+                    className={`text-sm font-medium transition-colors hover:text-amber-500 ${
+                      location === item.href ? "text-amber-500" : "text-neutral-400"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
                 </Link>
               ))}
               <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white border-0">
@@ -68,19 +71,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <div className="flex flex-col h-full p-6">
                     <div className="flex items-center justify-between mb-8">
                       <span className="font-display font-bold text-xl text-white">Menu</span>
-                      {/* Close button is handled by Sheet primitive automatically usually, but let's check */}
                     </div>
                     <nav className="flex flex-col gap-6">
                       {navItems.map((item) => (
-                        <Link 
-                          key={item.href} 
-                          href={item.href}
-                          className={`text-lg font-medium transition-colors ${
-                            location === item.href ? "text-amber-500" : "text-neutral-400"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {item.label}
+                        <Link key={item.href} href={item.href}>
+                          <a 
+                            className={`text-lg font-medium transition-colors ${
+                              location === item.href ? "text-amber-500" : "text-neutral-400"
+                            }`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {item.label}
+                          </a>
                         </Link>
                       ))}
                     </nav>
@@ -110,8 +112,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-6">
-                <Terminal className="text-amber-600 w-6 h-6" />
-                <span className="font-display font-bold text-xl text-white">Brown Fish Technologies</span>
+                <img 
+                  src={logoImg} 
+                  alt="Brown Fish Technologies" 
+                  className="h-10 w-auto object-contain"
+                />
+                <span className="font-display font-bold text-lg text-white">Brown Fish Technologies</span>
               </div>
               <p className="text-neutral-400 max-w-sm leading-relaxed mb-6">
                 Engineering digital resilience for the modern web. We build scalable, mission-critical software solutions for ambitious enterprises.
