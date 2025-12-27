@@ -94,13 +94,7 @@ export default function Contact() {
   const [userCountry, setUserCountry] = useState<string>("");
   const allCountries = getAllCountries();
 
-  // Auto-detect user's country on component mount
-  useEffect(() => {
-    const detected = detectUserCountry();
-    setUserCountry(detected);
-    setDetectedCountry(detected);
-  }, []);
-
+  // Create form with initial default
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -108,17 +102,18 @@ export default function Contact() {
       email: "",
       company: "",
       phone: "",
-      countryCode: userCountry,
+      countryCode: "",
       message: "",
     },
   });
 
-  // Update form when userCountry is detected
+  // Auto-detect user's country on component mount
   useEffect(() => {
-    if (userCountry) {
-      form.setValue("countryCode", userCountry);
-    }
-  }, [userCountry, form]);
+    const detected = detectUserCountry();
+    setUserCountry(detected);
+    setDetectedCountry(detected);
+    form.setValue("countryCode", detected);
+  }, [form]);
 
   // Auto-detect country from phone number
   useEffect(() => {
@@ -153,8 +148,9 @@ export default function Contact() {
     });
     form.reset();
     setPhoneValue("");
-    setDetectedCountry(userCountry);
     const detected = detectUserCountry();
+    setUserCountry(detected);
+    setDetectedCountry(detected);
     form.setValue("countryCode", detected);
   }
 
@@ -265,10 +261,10 @@ export default function Contact() {
                       render={({ field }) => (
                         <FormItem className="w-32 shrink-0">
                           <FormLabel className="text-neutral-300">Country</FormLabel>
-                          <Select value={field.value} onValueChange={field.onChange}>
+                          <Select value={field.value || ""} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
-                                <SelectValue placeholder="Select" />
+                                <SelectValue placeholder="Select country" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="bg-neutral-800 border-neutral-700 max-h-60">
@@ -310,10 +306,10 @@ export default function Contact() {
                     />
                   </div>
                   
-                  {detectedCountry && (
+                  {userCountry && (
                     <div className="flex items-center gap-2 text-xs text-amber-500">
                       <Globe className="w-3 h-3" />
-                      <span>Detected: {allCountries.find(c => c.code === detectedCountry)?.name}</span>
+                      <span>Auto-detected: {allCountries.find(c => c.code === userCountry)?.name} ({userCountry})</span>
                     </div>
                   )}
                 </div>
