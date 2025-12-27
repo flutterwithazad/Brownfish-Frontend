@@ -50,6 +50,11 @@ export default function Home() {
                   Book Technical Consultation
                 </Link>
               </Button>
+              <Button asChild size="lg" variant="outline" className="border-amber-600/50 text-amber-500 hover:bg-amber-600/10 text-base h-14 px-8">
+                <Link href="/contact">
+                  Get a Free Quote
+                </Link>
+              </Button>
               <Button asChild size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white hover:bg-transparent text-base h-14 px-8">
                 <Link href="/projects">
                   View Case Studies
