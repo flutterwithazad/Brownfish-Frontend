@@ -38,6 +38,12 @@ async function buildAll() {
   console.log("building client...");
   await viteBuild();
 
+  // Create 404.html for GitHub Pages SPA routing
+  // This allows direct navigation to routes like /projects
+  const indexContent = await readFile("dist/public/index.html", "utf-8");
+  await import("fs/promises").then(fs => fs.writeFile("dist/public/404.html", indexContent));
+
+
   console.log("building server...");
   const pkg = JSON.parse(await readFile("package.json", "utf-8"));
   const allDeps = [
