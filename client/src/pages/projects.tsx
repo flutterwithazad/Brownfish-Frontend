@@ -19,9 +19,11 @@ interface ProjectCardProps {
   outcome: string;
   stack: string[];
   status: 'Live' | 'In Development' | 'Case Study';
+  playStoreUrl?: string;
+  appStoreUrl?: string;
 }
 
-const ProjectCard = ({ title, category, description, outcome, stack, status }: ProjectCardProps) => (
+const ProjectCard = ({ title, category, description, outcome, stack, status, playStoreUrl, appStoreUrl }: ProjectCardProps) => (
   <div className="flex flex-col border-l-2 border-neutral-800 hover:border-amber-600 pl-8 py-4 transition-colors duration-300 group">
     <div className="flex items-center gap-3 mb-2">
       <span className="text-xs font-mono uppercase tracking-widest text-amber-600">{category}</span>
@@ -30,11 +32,26 @@ const ProjectCard = ({ title, category, description, outcome, stack, status }: P
     </div>
     <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">{title}</h3>
     <p className="text-neutral-400 mb-6 max-w-2xl leading-relaxed">{description}</p>
-    
+
     <div className="mb-6 bg-neutral-900/50 p-4 border border-neutral-800 rounded-lg">
       <strong className="text-white text-sm block mb-1 font-mono uppercase tracking-wide">Key Outcome</strong>
       <p className="text-neutral-300 text-sm">{outcome}</p>
     </div>
+
+    {(playStoreUrl || appStoreUrl) && (
+      <div className="flex gap-4 mb-6">
+        {playStoreUrl && (
+          <a href={playStoreUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-amber-600 hover:text-amber-500 font-medium underline-offset-4 hover:underline">
+            Google Play
+          </a>
+        )}
+        {appStoreUrl && (
+          <a href={appStoreUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-amber-600 hover:text-amber-500 font-medium underline-offset-4 hover:underline">
+            App Store
+          </a>
+        )}
+      </div>
+    )}
 
     <div className="flex flex-wrap gap-2 mt-auto">
       {stack.map((tech) => (
@@ -51,9 +68,20 @@ export default function Projects() {
     <div className="animate-in fade-in duration-500 py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle subtitle="Selected Work">Case Studies</SectionTitle>
-        
+
         <div className="space-y-16">
-          <ProjectCard 
+          <ProjectCard
+            title="Ummah360 - Quran Tutor & Prayer"
+            category="Mobile App"
+            status="Live"
+            description="A comprehensive Islamic application featuring Quran learning tools, prayer times, and community features. Built to serve the global Muslim community with accurate data and educational resources."
+            outcome="Successfully launched on both Android and iOS platforms."
+            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.ummah360&hl=en_IN"
+            appStoreUrl="https://apps.apple.com/in/app/ummah360-quran-tutor-prayer/id6756374492"
+            stack={['Flutter', 'Dart', 'Firebase', 'Rest API']}
+          />
+
+          <ProjectCard
             title="FinTrack - Corporate Expense Management"
             category="SaaS Platform"
             status="Live"
@@ -61,8 +89,8 @@ export default function Projects() {
             outcome="Reduced initial load time by 65%. Onboarded 50+ enterprise clients in Q1."
             stack={['React', 'TypeScript', 'D3.js', 'Node.js']}
           />
-          
-          <ProjectCard 
+
+          <ProjectCard
             title="LogiChain - Supply Chain Logistics"
             category="Mobile App"
             status="Live"
@@ -71,7 +99,7 @@ export default function Projects() {
             stack={['React Native', 'Firebase', 'Google Maps API', 'Redux']}
           />
 
-          <ProjectCard 
+          <ProjectCard
             title="MediConnect - Telehealth Portal"
             category="Healthcare Web App"
             status="Case Study"
