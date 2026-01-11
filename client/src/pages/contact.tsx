@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Globe, Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,12 +17,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils";
 
 const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
   <div className="mb-12">
@@ -89,6 +96,7 @@ const detectUserCountry = (): string => {
 
 export default function Contact() {
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
   const [detectedCountry, setDetectedCountry] = useState<string>("");
   const [phoneValue, setPhoneValue] = useState("");
   const [userCountry, setUserCountry] = useState<string>("");
@@ -259,25 +267,64 @@ export default function Contact() {
                       control={form.control}
                       name="countryCode"
                       render={({ field }) => (
-                        <FormItem className="w-32 shrink-0">
+                        <FormItem className="flex flex-col w-[140px] shrink-0">
                           <FormLabel className="text-neutral-300">Country</FormLabel>
-                          <Select value={field.value || ""} onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
-                                <SelectValue placeholder="Select country" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="bg-neutral-800 border-neutral-700 max-h-60">
-                              {allCountries.map((country) => (
-                                <SelectItem key={country.code} value={country.code} className="text-white hover:bg-neutral-700">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-amber-600 font-mono">{country.callingCode}</span>
-                                    <span className="text-neutral-400 text-sm">{country.code}</span>
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <Popover open={open} onOpenChange={setOpen}>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  aria-expanded={open}
+                                  className={cn(
+                                    "w-full justify-between bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700 hover:text-white px-3",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value
+                                    ? allCountries.find(
+                                      (country) => country.code === field.value
+                                    )?.callingCode
+                                    : "Select"}
+                                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[300px] p-0 bg-neutral-900 border-neutral-800">
+                              <Command className="bg-neutral-900">
+                                <CommandInput placeholder="Search country..." className="text-white" />
+                                <CommandList>
+                                  <CommandEmpty>No country found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {allCountries.map((country) => (
+                                      <CommandItem
+                                        value={`${country.name} ${country.callingCode}`}
+                                        key={country.code}
+                                        onSelect={() => {
+                                          form.setValue("countryCode", country.code);
+                                          setOpen(false);
+                                        }}
+                                        className="text-neutral-300 aria-selected:bg-neutral-800 aria-selected:text-white"
+                                      >
+                                        <Check
+                                          className={cn(
+                                            "mr-2 h-4 w-4",
+                                            country.code === field.value
+                                              ? "opacity-100 text-amber-600"
+                                              : "opacity-0"
+                                          )}
+                                        />
+                                        <span className="mr-2">{country.name}</span>
+                                        <span className="text-neutral-500 font-mono text-xs ml-auto">
+                                          {country.callingCode}
+                                        </span>
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
                           <FormMessage />
                         </FormItem>
                       )}
