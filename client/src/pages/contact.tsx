@@ -82,7 +82,7 @@ const detectUserCountry = (): string => {
   } catch (e) {
     // Fallback if locale detection fails
   }
-  
+
   // Default to US if detection fails
   return "US";
 };
@@ -121,7 +121,7 @@ export default function Contact() {
       try {
         const countryCode = form.getValues("countryCode");
         const parsed = parsePhoneNumber(phoneValue, countryCode as any);
-        
+
         if (parsed && parsed.country) {
           setDetectedCountry(parsed.country);
           form.setValue("countryCode", parsed.country);
@@ -158,14 +158,14 @@ export default function Contact() {
     <div className="animate-in fade-in duration-500 py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          
+
           {/* Contact Info */}
           <div>
             <SectionTitle subtitle="Get in Touch">Start Your Project</SectionTitle>
             <p className="text-neutral-400 text-lg mb-12 leading-relaxed">
               Ready to build something robust? We are currently accepting new projects for the upcoming quarter. Tell us about your technical challenges.
             </p>
-            
+
             <div className="space-y-8">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center shrink-0">
@@ -183,7 +183,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">Email Us</h4>
-                  <a href="mailto:hello@brownfish.tech" className="text-neutral-400 hover:text-amber-500 transition-colors">hello@brownfish.tech</a>
+                  <a href="mailto:hello@brownfishtech.com" className="text-neutral-400 hover:text-amber-500 transition-colors">hello@brownfishtech.com</a>
                 </div>
               </div>
 
@@ -206,7 +206,7 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="bg-neutral-900 border border-neutral-800 p-8 md:p-10 rounded-lg">
             <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
-            
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -237,7 +237,7 @@ export default function Contact() {
                     )}
                   />
                 </div>
-                
+
                 <FormField
                   control={form.control}
                   name="company"
@@ -282,7 +282,7 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="phone"
@@ -290,8 +290,8 @@ export default function Contact() {
                         <FormItem className="flex-1">
                           <FormLabel className="text-neutral-300">Phone Number</FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="7827149804" 
+                            <Input
+                              placeholder="7827149804"
                               className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20"
                               value={phoneValue}
                               onChange={(e) => {
@@ -305,7 +305,7 @@ export default function Contact() {
                       )}
                     />
                   </div>
-                  
+
                   {userCountry && (
                     <div className="flex items-center gap-2 text-xs text-amber-500">
                       <Globe className="w-3 h-3" />
@@ -321,10 +321,10 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel className="text-neutral-300">Message</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Tell us about your project requirements..." 
-                          className="bg-neutral-800 border-neutral-700 text-white min-h-[150px] focus:border-amber-600 focus:ring-amber-600/20" 
-                          {...field} 
+                        <Textarea
+                          placeholder="Tell us about your project requirements..."
+                          className="bg-neutral-800 border-neutral-700 text-white min-h-[150px] focus:border-amber-600 focus:ring-amber-600/20"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />

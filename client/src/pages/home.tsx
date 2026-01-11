@@ -31,7 +31,7 @@ export default function Home() {
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-neutral-800/20 to-transparent opacity-50"></div>
           <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent"></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 mb-8">
@@ -47,7 +47,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white border-0 text-base h-14 px-8">
                 <Link href="/contact">
-                  Book Technical Consultation
+                  Book Free Technical Consultation
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-amber-600/50 text-amber-500 hover:bg-amber-600/10 text-base h-14 px-8">
@@ -109,7 +109,7 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {['Discovery', 'Architecture', 'Development', 'QA & Audit', 'Deployment'].map((step, i) => (
               <div key={step} className="relative group">
@@ -132,7 +132,7 @@ export default function Home() {
       <section className="py-24 bg-neutral-900/50 border-y border-neutral-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle subtitle="Why Choose Us">What Sets Us Apart</SectionTitle>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="flex gap-4">
               <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0">
@@ -181,7 +181,7 @@ export default function Home() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle subtitle="Our Arsenal">Technology Stack</SectionTitle>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg">
               <h4 className="text-lg font-bold text-white mb-4">Frontend</h4>
@@ -226,7 +226,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white border-0 text-base h-14 px-8">
               <Link href="/contact">
-                Start Your Project Today
+                Start Your Free Consultation
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-neutral-600 text-neutral-300 hover:border-amber-600 hover:text-white text-base h-14 px-8">
@@ -245,7 +245,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Trusted by Industry Leaders</h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">Over 50+ startups and enterprises trust us with their critical infrastructure</p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {companies.map((company, i) => (
               <div key={i} className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg flex flex-col items-center justify-center h-40 hover:border-amber-600/30 transition-colors group">

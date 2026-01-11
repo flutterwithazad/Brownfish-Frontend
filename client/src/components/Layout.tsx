@@ -24,9 +24,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <img 
-                src={logoImg} 
-                alt="Brown Fish Technologies" 
+              <img
+                src={logoImg}
+                alt="Brown Fish Technologies"
                 className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
               />
               <div className="flex flex-col">
@@ -44,9 +44,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
                   <a
-                    className={`text-sm font-medium transition-colors hover:text-amber-500 ${
-                      location === item.href ? "text-amber-500" : "text-neutral-400"
-                    }`}
+                    className={`text-sm font-medium transition-colors hover:text-amber-500 ${location === item.href ? "text-amber-500" : "text-neutral-400"
+                      }`}
                   >
                     {item.label}
                   </a>
@@ -54,7 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               ))}
               <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white border-0">
                 <Link href="/contact">
-                  Book Consultation
+                  Book Free Consultation
                 </Link>
               </Button>
             </nav>
@@ -75,10 +74,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <nav className="flex flex-col gap-6">
                       {navItems.map((item) => (
                         <Link key={item.href} href={item.href}>
-                          <a 
-                            className={`text-lg font-medium transition-colors ${
-                              location === item.href ? "text-amber-500" : "text-neutral-400"
-                            }`}
+                          <a
+                            className={`text-lg font-medium transition-colors ${location === item.href ? "text-amber-500" : "text-neutral-400"
+                              }`}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.label}
@@ -89,7 +87,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <div className="mt-auto pt-8 border-t border-neutral-800">
                       <Button asChild className="w-full bg-amber-600 hover:bg-amber-700 text-white" onClick={() => setIsMobileMenuOpen(false)}>
                         <Link href="/contact">
-                          Book Consultation
+                          Book Free Consultation
                         </Link>
                       </Button>
                     </div>
@@ -112,9 +110,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-6">
-                <img 
-                  src={logoImg} 
-                  alt="Brown Fish Technologies" 
+                <img
+                  src={logoImg}
+                  alt="Brown Fish Technologies"
                   className="h-10 w-auto object-contain"
                 />
                 <span className="font-display font-bold text-lg text-white">Brown Fish Technologies</span>
@@ -134,14 +132,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </a>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-bold text-white mb-6">Services</h4>
               <ul className="space-y-4 text-neutral-400">
-                <li><Link href="/services" className="hover:text-amber-500 transition-colors">Mobile Development</Link></li>
-                <li><Link href="/services" className="hover:text-amber-500 transition-colors">Web Applications</Link></li>
-                <li><Link href="/services" className="hover:text-amber-500 transition-colors">Backend Architecture</Link></li>
-                <li><Link href="/services" className="hover:text-amber-500 transition-colors">MVP Development</Link></li>
+                <li><Link href="/services/mobile-development" className="hover:text-amber-500 transition-colors">Mobile Development</Link></li>
+                <li><Link href="/services/web-applications" className="hover:text-amber-500 transition-colors">Web Applications</Link></li>
+                <li><Link href="/services/backend-architecture" className="hover:text-amber-500 transition-colors">Backend Architecture</Link></li>
+                <li><Link href="/services/mvp-development" className="hover:text-amber-500 transition-colors">MVP Development</Link></li>
               </ul>
             </div>
 
@@ -155,7 +153,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </ul>
             </div>
           </div>
-          
+
           <div className="pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-neutral-500 text-sm">
               © {new Date().getFullYear()} Brown Fish Technologies. All rights reserved.
