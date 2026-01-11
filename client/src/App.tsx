@@ -12,6 +12,8 @@ import MobileDevelopment from "@/pages/services/mobile-development";
 import WebApplications from "@/pages/services/web-applications";
 import BackendArchitecture from "@/pages/services/backend-architecture";
 import MVPDevelopment from "@/pages/services/mvp-development";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import TermsOfService from "@/pages/terms";
 import { useEffect } from "react";
 
 function ScrollToTop() {
@@ -37,6 +39,8 @@ function Router() {
         <Route path="/services/mvp-development" component={MVPDevelopment} />
         <Route path="/projects" component={Projects} />
         <Route path="/contact" component={Contact} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms" component={TermsOfService} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

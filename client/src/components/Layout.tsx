@@ -124,10 +124,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-600 hover:text-white transition-all duration-300">
                   <Github className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-600 hover:text-white transition-all duration-300">
+                <a href="https://www.linkedin.com/company/brownfishtech" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-600 hover:text-white transition-all duration-300">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-600 hover:text-white transition-all duration-300">
+                <a href="mailto:hello@brownfishtech.com" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-600 hover:text-white transition-all duration-300">
                   <Mail className="w-5 h-5" />
                 </a>
               </div>
@@ -148,8 +148,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-4 text-neutral-400">
                 <li><Link href="/projects" className="hover:text-amber-500 transition-colors">Case Studies</Link></li>
                 <li><Link href="/contact" className="hover:text-amber-500 transition-colors">Contact Us</Link></li>
-                <li><a href="#" className="hover:text-amber-500 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-amber-500 transition-colors">Terms of Service</a></li>
+                <li><Link href="/privacy-policy" className="hover:text-amber-500 transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-amber-500 transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
