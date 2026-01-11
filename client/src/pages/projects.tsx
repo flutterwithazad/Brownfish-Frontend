@@ -104,6 +104,17 @@ export default function Projects() {
           />
 
           <ProjectCard
+            title="Bitewise AI - Food Scanning & Nutrition"
+            category="Mobile App (AI Powered)"
+            status="Live"
+            description="An intelligent food scanning application that analyzes barcodes and labels to provide instant nutritional insights and health ratings. Helps users make informed dietary choices using AI analysis."
+            outcome="Available on both iOS and Android platforms."
+            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.bitwise&hl=en_IN"
+            appStoreUrl="https://apps.apple.com/in/app/bitewise-ai/id6752122391"
+            stack={['Flutter', 'AI/ML Integration', 'Barcode Scanning', 'Nutrition API']}
+          />
+
+          <ProjectCard
             title="FinTrack - Corporate Expense Management"
             category="SaaS Platform"
             status="Live"
