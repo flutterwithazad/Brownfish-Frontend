@@ -88,7 +88,7 @@ const projects = [
     problem: "Fragmented Islamic apps for prayer, learning, and community.",
     solution: "All-in-one app with Quran tools, accuracy verified data, and community features.",
     result: "Live on Play Store & App Store.",
-    image: null
+    image: "/projects/ummah360.png"
   },
   {
     title: "UstaHub Service Platform",
@@ -97,7 +97,7 @@ const projects = [
     problem: "Disconnected experience between service providers and customers.",
     solution: "Unified dual-role app with real-time booking and robust admin panel.",
     result: "Streamlined operations and live on App Store.",
-    image: null
+    image: "/projects/ustahub.png"
   },
   {
     title: "Bitewise AI Scanner",
@@ -106,7 +106,7 @@ const projects = [
     problem: "Difficulty in accessing instant, accurate nutritional data.",
     solution: "AI-powered barcode scanner for instant health analysis.",
     result: "Deployed on Android & iOS.",
-    image: null
+    image: "/projects/bitewise-ai.png"
   }
 ];
 
