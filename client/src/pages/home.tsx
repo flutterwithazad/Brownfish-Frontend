@@ -34,44 +34,50 @@ const companies = [
 const services = [
   {
     icon: Globe,
-    title: "Web Development",
-    desc: "Scalable, SEO-optimized web applications built with Next.js and React.",
-    benefit: "Faster load times, higher conversion.",
+    title: "Web Application Development",
+    target: "Scale-ups & Enterprises",
+    problem: "Legacy systems slowing down operations or poor user retention.",
+    outcome: "High-performance, SEO-ready web apps that convert visitors.",
     link: "/services/web-applications"
   },
   {
     icon: Smartphone,
     title: "Mobile App Development",
-    desc: "Native and cross-platform apps for iOS and Android using Flutter.",
-    benefit: "One codebase, dual-platform reach.",
+    target: "Startups & Consumer Brands",
+    problem: "Need to reach users on both iOS and Android without double the cost.",
+    outcome: "Native-feel Flutter apps with 99% code sharing & fast launch.",
     link: "/services/mobile-development"
+  },
+  {
+    icon: Zap,
+    title: "Startup MVP Development",
+    target: "Founders & Visionaries",
+    problem: "Validating an idea quickly without wasting months on development.",
+    outcome: "Market-ready MVP in 4-8 weeks to secure funding or users.",
+    link: "/services/mvp-development"
   },
   {
     icon: PenTool,
     title: "UI/UX Design",
-    desc: "User-centric interfaces that are intuitive, accessible, and beautiful.",
-    benefit: "Increased user retention and engagement.",
-    link: "/services"
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce Solutions",
-    desc: "Custom E-commerce stores with secure payment gateways and inventory management.",
-    benefit: "Seamless shopping experiences that drive sales.",
+    target: "Product Teams",
+    problem: "Complex interfaces confusing users and killing engagement.",
+    outcome: "Intuitive, accessible designs that increase user retention.",
     link: "/services"
   },
   {
     icon: Database,
-    title: "Backend & API",
-    desc: "Robust, secure server-side logic and API integrations.",
-    benefit: "Reliable performance under high load.",
+    title: "Backend & API Development",
+    target: "Data-Heavy Platforms",
+    problem: "Security vulnerabilities and inability to handle traffic spikes.",
+    outcome: "Scalable, secure architecture that grows with your business.",
     link: "/services/backend-architecture"
   },
   {
     icon: Wrench,
     title: "Maintenance & Support",
-    desc: "Ongoing updates, security patches, and performance monitoring.",
-    benefit: "Zero downtime and peace of mind.",
+    target: "Established Products",
+    problem: "Downtime, broken features, and outdated security.",
+    outcome: "24/7 reliability, proactive monitoring, and zero stress.",
     link: "/services"
   }
 ];
@@ -240,18 +246,125 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, idx) => (
               <Link key={idx} href={service.link}>
-                <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg hover:border-amber-600/30 transition-all duration-300 group cursor-pointer h-full">
-                  <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-amber-600/10 transition-colors">
-                    <service.icon className="w-6 h-6 text-amber-600" />
+                <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg hover:border-amber-600/30 transition-all duration-300 group cursor-pointer h-full flex flex-col">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center group-hover:bg-amber-600/10 transition-colors shrink-0">
+                      <service.icon className="w-6 h-6 text-amber-600" />
+                    </div>
+                    <div className="text-xs font-mono text-neutral-500 bg-neutral-950 px-2 py-1 rounded border border-neutral-800">
+                      For: <span className="text-neutral-300">{service.target}</span>
+                    </div>
                   </div>
+
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">{service.title}</h3>
-                  <p className="text-neutral-400 mb-4">{service.desc}</p>
-                  <div className="text-sm border-t border-neutral-800 pt-4 text-neutral-500 font-mono">
-                    <strong className="text-amber-600">Benefit:</strong> {service.benefit}
+
+                  <div className="space-y-4 mt-auto">
+                    <div>
+                      <span className="text-xs text-red-400 font-mono block mb-1">The Problem:</span>
+                      <p className="text-sm text-neutral-400 leading-relaxed">{service.problem}</p>
+                    </div>
+                    <div className="border-t border-neutral-800 pt-3">
+                      <span className="text-xs text-green-500 font-mono block mb-1">The Outcome:</span>
+                      <p className="text-sm text-neutral-300 leading-relaxed font-medium">{service.outcome}</p>
+                    </div>
                   </div>
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Startup MVP Focus Section */}
+      <section className="py-24 bg-neutral-900 border-b border-neutral-800 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-600/5 blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-amber-600 font-mono tracking-wider uppercase text-sm mb-4 block">Startup Accelerator</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">From Idea to Market in <span className="text-amber-600">Weeks</span>, Not Months.</h2>
+              <p className="text-lg text-neutral-400 mb-8 leading-relaxed">
+                Most startups fail because they build too much, too slow. We help you validate your idea, build a lean MVP, and launch fast to get real user feedback.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-amber-600/10 flex items-center justify-center shrink-0 border border-amber-600/20">
+                    <Zap className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg">Rapid Prototyping</h4>
+                    <p className="text-neutral-400 text-sm">Visualise your app in days. No code, just clarity.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-amber-600/10 flex items-center justify-center shrink-0 border border-amber-600/20">
+                    <Layers className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg">Scalable MVP Build</h4>
+                    <p className="text-neutral-400 text-sm">Core features only. Built on a stack that scales (Flutter/Next.js).</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-amber-600/10 flex items-center justify-center shrink-0 border border-amber-600/20">
+                    <Users className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg">Launch & Iterate</h4>
+                    <p className="text-neutral-400 text-sm">Deploy to stores, gather data, and improve based on real usage.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <Button asChild size="lg" className="bg-white text-neutral-900 hover:bg-neutral-200">
+                  <Link href="/services/mvp-development">
+                    Start Your MVP Journey <ChevronRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-600 to-amber-900 rounded-2xl opacity-20 blur-lg"></div>
+              <div className="bg-neutral-800 border border-neutral-700 rounded-xl p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <Code className="w-64 h-64 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-6">Discovery Checklist</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3 text-neutral-300">
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0" />
+                    <span>Problem-Solution Fit Analysis</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-neutral-300">
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0" />
+                    <span>Competitor Technical Audit</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-neutral-300">
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0" />
+                    <span>Feature Prioritization (MoSCoW)</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-neutral-300">
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0" />
+                    <span>Tech Stack Selection</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-neutral-300">
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0" />
+                    <span>Go-to-Market Technical Roadmap</span>
+                  </li>
+                </ul>
+                <div className="mt-8 pt-8 border-t border-neutral-700">
+                  <div className="text-center">
+                    <p className="text-neutral-400 text-sm mb-3">Want this checklist for your idea?</p>
+                    <Button asChild variant="outline" className="w-full border-amber-600 text-amber-500 hover:bg-amber-600 hover:text-white">
+                      <Link href="/contact">Get Free Assessment</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -370,6 +483,19 @@ export default function Home() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle subtitle="Testimonials">Client Success Stories</SectionTitle>
+
+          <div className="flex items-center gap-4 mb-8 bg-neutral-900 border border-neutral-800 w-fit px-4 py-2 rounded-full mx-auto md:mx-0">
+            <div className="flex text-amber-500">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+            </div>
+            <span className="text-white font-bold">4.9/5</span>
+            <span className="text-neutral-500 border-l border-neutral-700 pl-4">Review Ratings</span>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((t, i) => (
               <div key={i} className="bg-neutral-900 border border-neutral-800 p-8 rounded-lg relative">
