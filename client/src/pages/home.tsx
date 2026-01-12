@@ -245,39 +245,58 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="group cursor-pointer">
               <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
                 <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
-                  <span className="text-neutral-500 font-mono">Project Image Placeholder</span>
+                  <span className="text-amber-600 font-mono text-xl font-bold">Ummah360</span>
                 </div>
               </div>
               <div className="flex gap-3 mb-3">
-                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">FinTech</span>
-                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Mobile App</span>
+                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">Mobile App</span>
+                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Flutter</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">WealthFlow Mobile Banking</h3>
-              <p className="text-neutral-400 mb-4">
-                <strong className="text-neutral-300">Problem:</strong> Legacy banking app with poor UX and slow transaction times.<br />
-                <strong className="text-neutral-300">Solution:</strong> Rebuilt from scratch using Flutter for cross-platform performance.<br />
-                <strong className="text-neutral-300">Result:</strong> 40% increase in daily active users.
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">Ummah360</h3>
+              <p className="text-neutral-400 mb-4 text-sm">
+                <strong className="text-neutral-300">Problem:</strong> Fragmented Islamic apps for prayer, learning, and community.<br />
+                <strong className="text-neutral-300">Solution:</strong> All-in-one app with Quran tools, accuracy verified data, and community features.<br />
+                <strong className="text-neutral-300">Result:</strong> Live on Play Store & App Store.
               </p>
             </div>
+
             <div className="group cursor-pointer">
               <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
                 <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
-                  <span className="text-neutral-500 font-mono">Project Image Placeholder</span>
+                  <span className="text-amber-600 font-mono text-xl font-bold">UstaHub</span>
                 </div>
               </div>
               <div className="flex gap-3 mb-3">
-                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">E-commerce</span>
-                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Web App</span>
+                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">Platform</span>
+                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Laravel + Flutter</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">LuxeMarket Marketplace</h3>
-              <p className="text-neutral-400 mb-4">
-                <strong className="text-neutral-300">Problem:</strong> Vendor onboarding was manual and slow.<br />
-                <strong className="text-neutral-300">Solution:</strong> Automated vendor portal using Next.js and Stripe Connect.<br />
-                <strong className="text-neutral-300">Result:</strong> Reduced onboarding time by 90%.
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">UstaHub Service Platform</h3>
+              <p className="text-neutral-400 mb-4 text-sm">
+                <strong className="text-neutral-300">Problem:</strong> Disconnected experience between service providers and customers.<br />
+                <strong className="text-neutral-300">Solution:</strong> Unified dual-role app with real-time booking and robust admin panel.<br />
+                <strong className="text-neutral-300">Result:</strong> Streamlined operations and live on App Store.
+              </p>
+            </div>
+
+            <div className="group cursor-pointer">
+              <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
+                <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
+                  <span className="text-amber-600 font-mono text-xl font-bold">Bitewise AI</span>
+                </div>
+              </div>
+              <div className="flex gap-3 mb-3">
+                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">AI Tech</span>
+                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">ML/AI</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">Bitewise AI Scanner</h3>
+              <p className="text-neutral-400 mb-4 text-sm">
+                <strong className="text-neutral-300">Problem:</strong> Difficulty in accessing instant, accurate nutritional data.<br />
+                <strong className="text-neutral-300">Solution:</strong> AI-powered barcode scanner for instant health analysis.<br />
+                <strong className="text-neutral-300">Result:</strong> deployed on Android & iOS.
               </p>
             </div>
           </div>
