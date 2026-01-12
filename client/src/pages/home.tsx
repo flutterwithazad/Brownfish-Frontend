@@ -80,6 +80,36 @@ const testimonials = [
   }
 ];
 
+const projects = [
+  {
+    title: "Ummah360",
+    category: "Mobile App",
+    tech: "Flutter",
+    problem: "Fragmented Islamic apps for prayer, learning, and community.",
+    solution: "All-in-one app with Quran tools, accuracy verified data, and community features.",
+    result: "Live on Play Store & App Store.",
+    image: null
+  },
+  {
+    title: "UstaHub Service Platform",
+    category: "Platform",
+    tech: "Laravel + Flutter",
+    problem: "Disconnected experience between service providers and customers.",
+    solution: "Unified dual-role app with real-time booking and robust admin panel.",
+    result: "Streamlined operations and live on App Store.",
+    image: null
+  },
+  {
+    title: "Bitewise AI Scanner",
+    category: "AI Tech",
+    tech: "ML/AI",
+    problem: "Difficulty in accessing instant, accurate nutritional data.",
+    solution: "AI-powered barcode scanner for instant health analysis.",
+    result: "Deployed on Android & iOS.",
+    image: null
+  }
+];
+
 export default function Home() {
   return (
     <div className="animate-in fade-in duration-500">
@@ -246,59 +276,29 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group cursor-pointer">
-              <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
-                <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
-                  <span className="text-amber-600 font-mono text-xl font-bold">Ummah360</span>
+            {projects.map((project, idx) => (
+              <div key={idx} className="group cursor-pointer">
+                <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
+                      <span className="text-amber-600 font-mono text-xl font-bold">{project.title}</span>
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="flex gap-3 mb-3">
-                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">Mobile App</span>
-                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Flutter</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">Ummah360</h3>
-              <p className="text-neutral-400 mb-4 text-sm">
-                <strong className="text-neutral-300">Problem:</strong> Fragmented Islamic apps for prayer, learning, and community.<br />
-                <strong className="text-neutral-300">Solution:</strong> All-in-one app with Quran tools, accuracy verified data, and community features.<br />
-                <strong className="text-neutral-300">Result:</strong> Live on Play Store & App Store.
-              </p>
-            </div>
-
-            <div className="group cursor-pointer">
-              <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
-                <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
-                  <span className="text-amber-600 font-mono text-xl font-bold">UstaHub</span>
+                <div className="flex gap-3 mb-3">
+                  <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">{project.category}</span>
+                  <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">{project.tech}</span>
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">{project.title}</h3>
+                <p className="text-neutral-400 mb-4 text-sm">
+                  <strong className="text-neutral-300">Problem:</strong> {project.problem}<br />
+                  <strong className="text-neutral-300">Solution:</strong> {project.solution}<br />
+                  <strong className="text-neutral-300">Result:</strong> {project.result}
+                </p>
               </div>
-              <div className="flex gap-3 mb-3">
-                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">Platform</span>
-                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">Laravel + Flutter</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">UstaHub Service Platform</h3>
-              <p className="text-neutral-400 mb-4 text-sm">
-                <strong className="text-neutral-300">Problem:</strong> Disconnected experience between service providers and customers.<br />
-                <strong className="text-neutral-300">Solution:</strong> Unified dual-role app with real-time booking and robust admin panel.<br />
-                <strong className="text-neutral-300">Result:</strong> Streamlined operations and live on App Store.
-              </p>
-            </div>
-
-            <div className="group cursor-pointer">
-              <div className="bg-neutral-800 h-64 w-full rounded-lg mb-6 overflow-hidden relative">
-                <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center group-hover:bg-neutral-900/30 transition-all">
-                  <span className="text-amber-600 font-mono text-xl font-bold">Bitewise AI</span>
-                </div>
-              </div>
-              <div className="flex gap-3 mb-3">
-                <span className="text-xs font-mono bg-neutral-900 text-amber-600 px-2 py-1 rounded">AI Tech</span>
-                <span className="text-xs font-mono bg-neutral-900 text-neutral-400 px-2 py-1 rounded">ML/AI</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors">Bitewise AI Scanner</h3>
-              <p className="text-neutral-400 mb-4 text-sm">
-                <strong className="text-neutral-300">Problem:</strong> Difficulty in accessing instant, accurate nutritional data.<br />
-                <strong className="text-neutral-300">Solution:</strong> AI-powered barcode scanner for instant health analysis.<br />
-                <strong className="text-neutral-300">Result:</strong> deployed on Android & iOS.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
