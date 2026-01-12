@@ -29,6 +29,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { cn } from "@/lib/utils";
 
 const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
@@ -59,6 +66,12 @@ const formSchema = z.object({
   }),
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
+  }),
+  projectType: z.string().min(1, {
+    message: "Please select a project type.",
+  }),
+  budgetRange: z.string().min(1, {
+    message: "Please select a budget range.",
   }),
 });
 
@@ -112,6 +125,8 @@ export default function Contact() {
       phone: "",
       countryCode: "",
       message: "",
+      projectType: "",
+      budgetRange: "",
     },
   });
 
@@ -359,6 +374,60 @@ export default function Contact() {
                       <span>Auto-detected: {allCountries.find(c => c.code === userCountry)?.name} ({userCountry})</span>
                     </div>
                   )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="projectType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-neutral-300">Project Type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
+                              <SelectValue placeholder="Select type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-neutral-800 border-neutral-700">
+                            <SelectItem value="web-dev" className="text-white hover:bg-neutral-700">Web Development</SelectItem>
+                            <SelectItem value="mobile-app" className="text-white hover:bg-neutral-700">Mobile App Development</SelectItem>
+                            <SelectItem value="ui-ux" className="text-white hover:bg-neutral-700">UI/UX Design</SelectItem>
+                            <SelectItem value="mvp" className="text-white hover:bg-neutral-700">MVP Development</SelectItem>
+                            <SelectItem value="backend" className="text-white hover:bg-neutral-700">Backend & API</SelectItem>
+                            <SelectItem value="maintenance" className="text-white hover:bg-neutral-700">Maintenance & Support</SelectItem>
+                            <SelectItem value="other" className="text-white hover:bg-neutral-700">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="budgetRange"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-neutral-300">Budget Range (USD)</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
+                              <SelectValue placeholder="Select range" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-neutral-800 border-neutral-700">
+                            <SelectItem value="lt-5k" className="text-white hover:bg-neutral-700">&lt; $5,000</SelectItem>
+                            <SelectItem value="5k-10k" className="text-white hover:bg-neutral-700">$5,000 - $10,000</SelectItem>
+                            <SelectItem value="10k-25k" className="text-white hover:bg-neutral-700">$10,000 - $25,000</SelectItem>
+                            <SelectItem value="25k-50k" className="text-white hover:bg-neutral-700">$25,000 - $50,000</SelectItem>
+                            <SelectItem value="gt-50k" className="text-white hover:bg-neutral-700">&gt; $50,000</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
 
                 <FormField
