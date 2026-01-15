@@ -83,26 +83,6 @@ export default function Projects() {
 
         <div className="space-y-16">
           <ProjectCard
-            title="Attendio - Self Attendance App"
-            category="Mobile App"
-            status="Live"
-            description="A smart attendance tracking solution for individuals and teams. Simplifies record-keeping with easy check-in/check-out features and insightful reports."
-            outcome="Available on Google Play Store."
-            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.attendio"
-            stack={['Flutter', 'Android', 'Local Storage']}
-          />
-
-          <ProjectCard
-            title="DispoMail - Temp Email"
-            category="Mobile App"
-            status="Live"
-            description="Instantly generate temporary email addresses to protect your privacy and avoid spam. Secure, fast, and disposable email solution for safe registrations."
-            outcome="Available on Google Play Store."
-            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.dispomail"
-            stack={['Flutter', 'Privacy', 'REST API']}
-          />
-
-          <ProjectCard
             title="Ummah360 - Quran Tutor & Prayer"
             category="Mobile App"
             status="Live"
@@ -132,6 +112,26 @@ export default function Projects() {
             playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.bitwise&hl=en_IN"
             appStoreUrl="https://apps.apple.com/in/app/bitewise-ai/id6752122391"
             stack={['Flutter', 'AI/ML Integration', 'Barcode Scanning', 'Nutrition API']}
+          />
+
+          <ProjectCard
+            title="Attendio - Self Attendance App"
+            category="Mobile App"
+            status="Live"
+            description="A smart attendance tracking solution for individuals and teams. Simplifies record-keeping with easy check-in/check-out features and insightful reports."
+            outcome="Available on Google Play Store."
+            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.attendio"
+            stack={['Flutter', 'Android', 'Local Storage']}
+          />
+
+          <ProjectCard
+            title="DispoMail - Temp Email"
+            category="Mobile App"
+            status="Live"
+            description="Instantly generate temporary email addresses to protect your privacy and avoid spam. Secure, fast, and disposable email solution for safe registrations."
+            outcome="Available on Google Play Store."
+            playStoreUrl="https://play.google.com/store/apps/details?id=com.brownfish.dispomail"
+            stack={['Flutter', 'Privacy', 'REST API']}
           />
 
           <ProjectCard
