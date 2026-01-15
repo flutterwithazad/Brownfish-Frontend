@@ -1,4 +1,4 @@
-import { Terminal, CheckCircle2, Globe, ArrowRight, ChevronRight, Code, Zap, Shield, Users, Layers, Smartphone, Database, PenTool, ShoppingCart, Wrench } from "lucide-react";
+import { Terminal, CheckCircle2, Globe, ArrowRight, ChevronRight, Code, Zap, Shield, Users, Layers, Smartphone, Database, PenTool, ShoppingCart, Wrench, Megaphone } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,7 +58,7 @@ const services = [
   },
   {
     icon: PenTool,
-    title: "UI/UX Design",
+    title: "UI/UX Designing",
     target: "Product Teams",
     problem: "Complex interfaces confusing users and killing engagement.",
     outcome: "Intuitive, accessible designs that increase user retention.",
@@ -79,6 +79,14 @@ const services = [
     problem: "Downtime, broken features, and outdated security.",
     outcome: "24/7 reliability, proactive monitoring, and zero stress.",
     link: "/services"
+  },
+  {
+    icon: Megaphone,
+    title: "Digital Marketing",
+    target: "Growth-Focused Brands",
+    problem: "Invisible online presence and wasted ad budget.",
+    outcome: "Turnkey SEO, Google Ads & social campaigns that scale.",
+    link: "/services/digital-marketing"
   }
 ];
 

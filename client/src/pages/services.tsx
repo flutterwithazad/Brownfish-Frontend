@@ -1,4 +1,4 @@
-import { Smartphone, Code2, Database, Rocket } from "lucide-react";
+import { Smartphone, Code2, Database, Rocket, PenTool, Megaphone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 
@@ -80,6 +80,20 @@ export default function Services() {
             description="Rapid prototyping for validation. We help you cut feature creep and launch a solid, scalable Minimum Viable Product in 8-12 weeks."
             technologies={['Supabase', 'Firebase', 'Next.js', 'Vercel']}
             href="/services/mvp-development"
+          />
+          <ServiceCard
+            icon={PenTool}
+            title="UI/UX Designing"
+            description="Intuitive and engaging user interfaces. We design product experiences that look beautiful and work seamlessly."
+            technologies={['Figma', 'Adobe XD', 'Prototyping', 'User Research']}
+            href="/contact"
+          />
+          <ServiceCard
+            icon={Megaphone}
+            title="Digital Marketing"
+            description="Growth-focused digital strategies. We increase visibility and drive conversions through targeted SEO and advertising campaigns."
+            technologies={['SEO', 'Google Ads', 'Social Media', 'Content Marketing']}
+            href="/services/digital-marketing"
           />
         </div>
       </div>

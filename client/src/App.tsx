@@ -12,6 +12,7 @@ import MobileDevelopment from "@/pages/services/mobile-development";
 import WebApplications from "@/pages/services/web-applications";
 import BackendArchitecture from "@/pages/services/backend-architecture";
 import MVPDevelopment from "@/pages/services/mvp-development";
+import DigitalMarketing from "@/pages/services/digital-marketing";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms";
 import { useEffect } from "react";
@@ -37,6 +38,7 @@ function Router() {
         <Route path="/services/web-applications" component={WebApplications} />
         <Route path="/services/backend-architecture" component={BackendArchitecture} />
         <Route path="/services/mvp-development" component={MVPDevelopment} />
+        <Route path="/services/digital-marketing" component={DigitalMarketing} />
         <Route path="/projects" component={Projects} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />

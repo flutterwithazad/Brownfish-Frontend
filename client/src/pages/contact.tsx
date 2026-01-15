@@ -392,9 +392,10 @@ export default function Contact() {
                           <SelectContent className="bg-neutral-800 border-neutral-700">
                             <SelectItem value="web-dev" className="text-white hover:bg-neutral-700">Web Development</SelectItem>
                             <SelectItem value="mobile-app" className="text-white hover:bg-neutral-700">Mobile App Development</SelectItem>
-                            <SelectItem value="ui-ux" className="text-white hover:bg-neutral-700">UI/UX Design</SelectItem>
+                            <SelectItem value="ui-ux" className="text-white hover:bg-neutral-700">UI/UX Designing</SelectItem>
                             <SelectItem value="mvp" className="text-white hover:bg-neutral-700">MVP Development</SelectItem>
                             <SelectItem value="backend" className="text-white hover:bg-neutral-700">Backend & API</SelectItem>
+                            <SelectItem value="digital-marketing" className="text-white hover:bg-neutral-700">Digital Marketing</SelectItem>
                             <SelectItem value="maintenance" className="text-white hover:bg-neutral-700">Maintenance & Support</SelectItem>
                             <SelectItem value="other" className="text-white hover:bg-neutral-700">Other</SelectItem>
                           </SelectContent>

@@ -140,6 +140,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/services/web-applications" className="hover:text-amber-500 transition-colors">Web Applications</Link></li>
                 <li><Link href="/services/backend-architecture" className="hover:text-amber-500 transition-colors">Backend Architecture</Link></li>
                 <li><Link href="/services/mvp-development" className="hover:text-amber-500 transition-colors">MVP Development</Link></li>
+                <li><Link href="/contact" className="hover:text-amber-500 transition-colors">UI/UX Designing</Link></li>
+                <li><Link href="/services/digital-marketing" className="hover:text-amber-500 transition-colors">Digital Marketing</Link></li>
               </ul>
             </div>
 
