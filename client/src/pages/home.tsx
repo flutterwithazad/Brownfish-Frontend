@@ -105,6 +105,26 @@ const testimonials = [
 
 const projects = [
   {
+    title: "Attendio - Self Attendance",
+    category: "Mobile App",
+    tech: "Flutter",
+    problem: "Keeping track of attendance manually is tedious and prone to errors.",
+    solution: "Smart attendance tracking with easy check-in/out and reports.",
+    result: "Live on Play Store.",
+    image: "",
+    playStore: "https://play.google.com/store/apps/details?id=com.brownfish.attendio"
+  },
+  {
+    title: "DispoMail",
+    category: "Utility App",
+    tech: "Flutter",
+    problem: "Spam emails cluttering personal inboxes after signing up for services.",
+    solution: "Instant disposable email generation for privacy and spam protection.",
+    result: "Live on Play Store.",
+    image: "",
+    playStore: "https://play.google.com/store/apps/details?id=com.brownfish.dispomail"
+  },
+  {
     title: "Ummah360",
     category: "Mobile App",
     tech: "Flutter",
