@@ -598,6 +598,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Location Map Section */}
+      <section className="py-24 border-y border-neutral-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle subtitle="Our Office">Visit Our HQ</SectionTitle>
+          <div className="w-full h-[400px] md:h-[500px] bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 relative z-0 group">
+            <iframe
+              src="https://maps.google.com/maps?q=BrownFish+Technologies+South+Delhi&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale hover:grayscale-0 transition-all duration-700 opacity-80 hover:opacity-100"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Contact CTA Section */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

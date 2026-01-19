@@ -457,6 +457,23 @@ export default function Contact() {
           </div>
 
         </div>
+
+        {/* Map Section */}
+        <div className="mt-20">
+          <SectionTitle subtitle="Location">Visit Our HQ</SectionTitle>
+          <div className="w-full h-[450px] bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 relative z-0">
+            <iframe
+              src="https://maps.google.com/maps?q=BrownFish+Technologies+South+Delhi&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale hover:grayscale-0 transition-all duration-500"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -107,8 +107,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Footer */}
       <footer className="bg-neutral-950 border-t border-neutral-900 py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div>
               <div className="flex items-center gap-2 mb-6">
                 <img
                   src={logoImg}
@@ -117,7 +117,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 />
                 <span className="font-display font-bold text-lg text-white">Brown Fish Technologies</span>
               </div>
-              <p className="text-neutral-400 max-w-sm leading-relaxed mb-6">
+              <p className="text-neutral-400 leading-relaxed mb-6 text-sm">
                 Engineering digital resilience for the modern web. We build scalable, mission-critical software solutions for ambitious enterprises.
               </p>
               <div className="flex items-center gap-4">
@@ -135,7 +135,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             <div>
               <h4 className="font-bold text-white mb-6">Services</h4>
-              <ul className="space-y-4 text-neutral-400">
+              <ul className="space-y-4 text-neutral-400 text-sm">
                 <li><Link href="/services/mobile-development" className="hover:text-amber-500 transition-colors">Mobile Development</Link></li>
                 <li><Link href="/services/web-applications" className="hover:text-amber-500 transition-colors">Web Applications</Link></li>
                 <li><Link href="/services/backend-architecture" className="hover:text-amber-500 transition-colors">Backend Architecture</Link></li>
@@ -147,12 +147,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             <div>
               <h4 className="font-bold text-white mb-6">Company</h4>
-              <ul className="space-y-4 text-neutral-400">
+              <ul className="space-y-4 text-neutral-400 text-sm">
                 <li><Link href="/projects" className="hover:text-amber-500 transition-colors">Case Studies</Link></li>
                 <li><Link href="/contact" className="hover:text-amber-500 transition-colors">Contact Us</Link></li>
                 <li><Link href="/privacy-policy" className="hover:text-amber-500 transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="hover:text-amber-500 transition-colors">Terms of Service</Link></li>
               </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-white mb-6">Location</h4>
+              <p className="text-neutral-400 text-sm mb-4">
+                Flat 101 Tigri DDA Flats<br />
+                South Delhi - 110080<br />
+                India
+              </p>
+              <div className="w-full h-32 bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800">
+                <iframe
+                  src="https://maps.google.com/maps?q=BrownFish+Technologies+South+Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
+                />
+              </div>
             </div>
           </div>
 
