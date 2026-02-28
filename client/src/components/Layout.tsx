@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoImg from "@assets/image_1766825735711.png";
 
+declare const __APP_VERSION__: string;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -181,8 +183,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <p className="text-neutral-500 text-sm">
               © {new Date().getFullYear()} Brown Fish Technologies. All rights reserved.
             </p>
-            <p className="text-neutral-600 text-sm font-mono">
-              Designed & Engineered in NYC
+            <p className="text-neutral-600 text-sm font-mono flex items-center justify-center md:justify-end gap-2 text-center md:text-right">
+              <span>v{__APP_VERSION__}</span>
+              <span className="hidden md:inline">•</span>
+              <span>Designed & Engineered in NYC</span>
             </p>
           </div>
         </div>

@@ -450,7 +450,8 @@ export default function Contact() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="bg-neutral-800 border-neutral-700">
-                            <SelectItem value="lt-5k" className="text-white hover:bg-neutral-700">&lt; $5,000</SelectItem>
+                            <SelectItem value="lt-1k" className="text-white hover:bg-neutral-700">&lt; $1,000</SelectItem>
+                            <SelectItem value="1k-5k" className="text-white hover:bg-neutral-700">$1,000 - $5,000</SelectItem>
                             <SelectItem value="5k-10k" className="text-white hover:bg-neutral-700">$5,000 - $10,000</SelectItem>
                             <SelectItem value="10k-25k" className="text-white hover:bg-neutral-700">$10,000 - $25,000</SelectItem>
                             <SelectItem value="25k-50k" className="text-white hover:bg-neutral-700">$25,000 - $50,000</SelectItem>

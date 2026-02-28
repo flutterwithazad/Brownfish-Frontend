@@ -4,8 +4,17 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { metaImagesPlugin } from "./vite-plugin-meta-images";
+import { execSync } from "child_process";
+
+let commitHash = "unknown";
+try {
+  commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+} catch (e) { }
 
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(commitHash),
+  },
   plugins: [
     react(),
     runtimeErrorOverlay(),
