@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useState, useEffect } from "react";
 import { parsePhoneNumber, getCountries, getCountryCallingCode } from "libphonenumber-js";
+import emailjs from '@emailjs/browser';
 import {
   Form,
   FormControl,
@@ -113,6 +114,7 @@ export default function Contact() {
   const [detectedCountry, setDetectedCountry] = useState<string>("");
   const [phoneValue, setPhoneValue] = useState("");
   const [userCountry, setUserCountry] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const allCountries = getAllCountries();
 
   // Create form with initial default
@@ -163,18 +165,48 @@ export default function Contact() {
     }
   }, [phoneValue, form]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Message Sent",
-      description: "We've received your message and will get back to you within 24 hours.",
-    });
-    form.reset();
-    setPhoneValue("");
-    const detected = detectUserCountry();
-    setUserCountry(detected);
-    setDetectedCountry(detected);
-    form.setValue("countryCode", detected);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    try {
+      const countryCode = allCountries.find(c => c.code === values.countryCode)?.callingCode || "";
+      const templateParams = {
+        name: values.name,
+        email: values.email,
+        company: values.company || "N/A",
+        phone: `${countryCode} ${values.phone}`,
+        message: values.message,
+        projectType: values.projectType,
+        budgetRange: values.budgetRange,
+      };
+
+      // Use environment variables or replace these strings with your actual EmailJS credentials
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY"
+      );
+
+      toast({
+        title: "Message Sent",
+        description: "We've received your message and will get back to you within 24 hours.",
+      });
+      form.reset();
+      setPhoneValue("");
+      const detected = detectUserCountry();
+      setUserCountry(detected);
+      setDetectedCountry(detected);
+      form.setValue("countryCode", detected);
+    } catch (error) {
+      console.error("FAILED...", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -449,8 +481,13 @@ export default function Contact() {
                   )}
                 />
 
-                <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700 text-white py-6 text-lg font-medium">
-                  Send Message <Send className="ml-2 w-4 h-4" />
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-amber-600 hover:bg-amber-700 text-white py-6 text-lg font-medium disabled:opacity-70"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {!isSubmitting && <Send className="ml-2 w-4 h-4" />}
                 </Button>
               </form>
             </Form>
