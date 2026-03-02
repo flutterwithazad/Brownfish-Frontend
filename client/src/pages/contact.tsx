@@ -168,15 +168,33 @@ export default function Contact() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     try {
-      const countryCode = allCountries.find(c => c.code === values.countryCode)?.callingCode || "";
+      const selectedCountry = allCountries.find(c => c.code === values.countryCode);
+      const countryCode = selectedCountry?.callingCode || "";
+      const countryName = selectedCountry?.name || values.countryCode;
+
       const templateParams = {
+        // Form specific fields
         name: values.name,
+        from_name: values.name, // Common EmailJS variable
+        user_name: values.name,
+
         email: values.email,
+        reply_to: values.email, // Common EmailJS variable
+        user_email: values.email,
+        from_email: values.email, // Matches your template
+
         company: values.company || "N/A",
+
         phone: `${countryCode} ${values.phone}`,
+        country: countryName,
+
         message: values.message,
+
         projectType: values.projectType,
+        project_type: values.projectType,
+
         budgetRange: values.budgetRange,
+        budget_range: values.budgetRange,
       };
 
       // Use environment variables or replace these strings with your actual EmailJS credentials
