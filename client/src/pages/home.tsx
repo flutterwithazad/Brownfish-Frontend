@@ -277,9 +277,9 @@ export default function Home() {
                   Book a Free Consultation
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white hover:bg-transparent text-base h-14 px-8 transition-transform hover:scale-105 active:scale-95">
-                <Link href="/contact">
-                  Get a Project Estimate
+              <Button asChild size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white hover:bg-neutral-800 text-base h-14 px-8 transition-transform hover:scale-105 active:scale-95">
+                <Link href="/portfolio-brochure">
+                  <Globe className="w-4 h-4 mr-2" /> View Digital Brochure
                 </Link>
               </Button>
             </motion.div>
