@@ -287,12 +287,24 @@ export default function PortfolioBrochure() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 flex-1">
-          <div className="relative">
+          <div className="relative flex items-center justify-center gap-4">
             <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="w-full max-w-[320px] mx-auto aspect-[9/19] rounded-[2.5rem] overflow-hidden border-[6px] border-white/15 bg-neutral-900 shadow-[0_0_50px_rgba(132,204,22,0.1)] relative"
+              whileHover={{ y: -20 }}
+              className="w-[200px] aspect-[9/19] rounded-[1.5rem] overflow-hidden border-[4px] border-white/15 bg-neutral-900 shadow-2xl relative z-10"
             >
-              <img src="/portfolio/bitewise.png" alt="BiteWise Mockup" className="w-full h-full object-cover" />
+              <img src="/portfolio/bw-1.png" alt="BiteWise Screen 1" className="w-full h-full object-cover" />
+            </motion.div>
+            <motion.div 
+              whileHover={{ y: 20 }}
+              className="w-[200px] aspect-[9/19] rounded-[1.5rem] overflow-hidden border-[4px] border-white/15 bg-neutral-900 shadow-2xl relative -translate-y-8 z-20"
+            >
+              <img src="/portfolio/bw-2.png" alt="BiteWise Screen 2" className="w-full h-full object-cover" />
+            </motion.div>
+            <motion.div 
+              whileHover={{ y: -10 }}
+              className="w-[200px] aspect-[9/19] rounded-[1.5rem] overflow-hidden border-[4px] border-white/15 bg-neutral-900 shadow-2xl relative translate-y-8 z-0 hidden md:block"
+            >
+              <img src="/portfolio/bw-3.png" alt="BiteWise Screen 3" className="w-full h-full object-cover" />
             </motion.div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-lime-500/5 blur-[100px] -z-10" />
           </div>

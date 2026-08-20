@@ -1,0 +1,31 @@
+#!/usr/bin/expect -f
+set timeout 10
+set user [lindex $argv 0]
+set pass [lindex $argv 1]
+set host [lindex $argv 2]
+
+spawn ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=no $user@$host
+expect {
+    "assword:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "Permission denied" {
+        puts "FAILED"
+        exit 1
+    }
+    "#" {
+        puts "SUCCESS_ROOT"
+        send "exit\r"
+        exit  
+    }
+    "\\$" {
+        puts "SUCCESS_USER"
+        send "exit\r"
+        exit 0
+    }
+    timeout {
+        puts "TIMEOUT"
+        exit 1
+    }
+}

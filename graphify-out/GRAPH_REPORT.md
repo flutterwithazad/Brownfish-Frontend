@@ -1,12 +1,12 @@
 # Graph Report - Brownfish-Frontend  (2026-04-23)
 
 ## Corpus Check
-- 85 files · ~75,934 words
+- 86 files · ~144,614 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 142 nodes · 65 edges · 6 communities detected
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.8)
+- 146 nodes · 68 edges · 6 communities detected
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
