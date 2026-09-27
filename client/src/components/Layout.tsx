@@ -4,11 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoImg from "@assets/image_1766825735711.png";
+import { useSeo } from "@/hooks/useSeo";
 
 declare const __APP_VERSION__: string;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+  useSeo();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
