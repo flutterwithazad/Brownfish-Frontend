@@ -1,4 +1,4 @@
-import{r as vr,j as Ma}from"./index-DG_p4Vno.js";/**
+import{r as vr,j as Ma}from"./index-BR8g2EU9.js";/**
  * @license
  * Copyright 2010-2026 Three.js Authors
  * SPDX-License-Identifier: MIT
