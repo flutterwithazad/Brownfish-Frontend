@@ -1,5 +1,37 @@
 export const projects = [
   {
+    "title": "Islamic PNG World \u2014 Islamic Graphics Library",
+    "category": "Digital Asset Website",
+    "status": "Live",
+    "description": "A searchable library of free transparent Islamic graphics, featuring Ramadan decorations, Eid greetings, calligraphy, and architectural elements for creative projects.",
+    "outcome": "Live digital library with category browsing, search, and PNG downloads.",
+    "stack": [
+      "Website",
+      "Digital library",
+      "Search & discovery"
+    ],
+    "name": "Islamic PNG World",
+    "image": "islamicpngworld",
+    "filter": "Web platforms",
+    "websiteUrl": "https://islamicpngworld.com/"
+  },
+  {
+    "title": "Dreams Maker Studio \u2014 Photography & Experiences",
+    "category": "Photography & Studio Website",
+    "status": "Live",
+    "description": "An editorial website showcasing portfolio photography, modeling, and celebrity experiences, with service pages, a filterable portfolio, and direct enquiry links.",
+    "outcome": "Live studio website connecting visitors with photography services and experiences.",
+    "stack": [
+      "Website",
+      "Portfolio",
+      "Service enquiries"
+    ],
+    "name": "Dreams Maker Studio",
+    "image": "dreamsmakerstudio",
+    "filter": "Web platforms",
+    "websiteUrl": "https://dreamsmakerstudio.in/"
+  },
+  {
     "title": "Ummah360 - Quran Tutor & Prayer",
     "category": "Mobile App",
     "status": "Live",
