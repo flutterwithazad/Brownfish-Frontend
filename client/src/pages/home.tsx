@@ -1,3 +1,5 @@
+import { useProjectActions } from '@/components/ProjectActions';
+import { projects } from './project-data';
 import { Link } from 'wouter';
 import { ArrowUpRight, ArrowDown, Asterisk, MoveUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,7 +12,13 @@ const services = [
   {title:'Ideas into reality',text:'From that first “what if” to your first launch. Strategy, design, and MVP development under one roof.',tags:'PRODUCT STRATEGY / UI & UX / MVP',url:'/services/mvp-development'},
   {title:'Built for what’s next',text:'Reliable backends and scalable architecture that give your product room to grow.',tags:'APIs / CLOUD / ARCHITECTURE',url:'/services/backend-architecture'},
 ];
-export default function Home(){return <div className="studio-home">
+const featuredWork = [
+  {name:'Islamic PNG World',className:'ummah-visual website-home-visual',tagline:'A WORLD OF CREATIVE POSSIBILITIES.',category:'WEBSITE / DIGITAL LIBRARY',caption:'Islamic graphics, made easy to discover.'},
+  {name:'Dreams Maker Studio',className:'dreams-visual website-home-visual',tagline:'EVERY STORY DESERVES A FRAME.',category:'WEBSITE / PHOTOGRAPHY',caption:'An editorial home for photography and experiences.'},
+  {name:'Ummah360',className:'ummah-visual',tagline:'CONNECTED BY FAITH.',category:'MOBILE EXPERIENCE / FLUTTER',caption:'Faith, learning, and community. In your pocket.'},
+  {name:'Bitewise AI',className:'bitewise-visual',tagline:'BETTER CHOICES START HERE.',category:'AI PRODUCT / MOBILE APP',caption:'A little intelligence for your everyday nutrition.'},
+];
+export default function Home(){const {action,chooser}=useProjectActions();return <div className="studio-home">
   <section className="studio-hero">
     <div className="hero-eyebrow"><span><i/> SMALL STUDIO. BIG POSSIBILITIES.</span><span>DESIGN + TECHNOLOGY</span></div>
     <div className="hero-copy"><h1>Good ideas.<br/>Bold <span>digital.</span><span className="hero-star">✳</span></h1><p>We turn ambitious ideas into websites,<br className="desktop-break"/> apps, and experiences people feel.</p><div className="hero-actions"><Link href="/contact" className="orange-button">Let’s build something<ArrowUpRight size={20}/></Link><a href="#work" className="text-button">Explore our work<ArrowDown size={17}/></a></div></div>
@@ -20,12 +28,13 @@ export default function Home(){return <div className="studio-home">
   <div className="discipline-strip"><span>Design with intention</span><Asterisk/><span>Build with precision</span><Asterisk/><span>Make an impact</span><Asterisk/><span>Stay curious</span><Asterisk/></div>
   <section className="work-section" id="work"><motion.div {...reveal} className="section-heading"><div><span className="section-kicker">01 / SELECTED WORK</span><h2>Real ideas.<br/><span>Out in the world.</span></h2></div><Link href="/projects" className="text-button">All projects<ArrowUpRight size={19}/></Link></motion.div>
     <div className="work-grid">
-      <motion.div {...reveal}><Link href="/projects" className="work-card"><div className="project-visual ummah-visual"><span className="project-topline">CONNECTED BY FAITH.</span><div className="project-orb"/><img src="/projects/ummah360.png" alt="Ummah360 mobile app interface" loading="lazy"/><span className="project-visual-label">ummah<span>360</span></span><span className="project-open"><ArrowUpRight/></span></div><div className="project-info"><h3>Ummah360</h3><span>MOBILE EXPERIENCE / FLUTTER</span></div><p>Faith, learning, and community. In your pocket.</p></Link></motion.div>
-      <motion.div {...reveal} transition={{duration:.65,delay:.15}}><Link href="/projects" className="work-card"><div className="project-visual bitewise-visual"><span className="project-topline">BETTER CHOICES START HERE.</span><div className="project-orb"/><img src="/projects/bitewise-ai.png" alt="Bitewise AI food scanning and nutrition application" loading="lazy"/><span className="project-visual-label">bitewise<span> ai</span></span><span className="project-open"><ArrowUpRight/></span></div><div className="project-info"><h3>Bitewise AI</h3><span>AI PRODUCT / MOBILE APP</span></div><p>A little intelligence for your everyday nutrition.</p></Link></motion.div>
+      {featuredWork.map((work,index)=>{const project=projects.find(p=>p.name===work.name)!;return <motion.article {...reveal} transition={{duration:.65,delay:(index%2)*.15}} className="work-card home-work-card" key={work.name}>
+        {action(project)}<div className={`project-visual ${work.className}`}><span className="project-topline">{work.tagline}</span><div className="project-orb"/><img src={`/projects/${project.image}.png`} alt={`${work.name} ${project.websiteUrl?'website':'mobile app'} preview`} loading="lazy"/><span className="project-visual-label">{work.name}</span><span className="project-open" aria-hidden="true"><ArrowUpRight/></span></div><div className="project-info"><h3>{work.name}</h3><span>{work.category}</span></div><p>{work.caption}</p>
+      </motion.article>})}
     </div>
   </section>
   <section className="about-studio"><motion.div {...reveal}><span className="section-kicker">THE BROWNFISH WAY</span><h2>We’re the team<br/>that <em>dives deeper.</em></h2></motion.div><motion.div {...reveal} className="about-copy"><p>Great digital products happen when curious minds meet considered design and serious engineering.</p><p>We’re an independent studio building thoughtful websites, mobile apps, and software for people with something to change. From the first conversation to the final detail, we work as part of your team.</p><Link href="/contact" className="text-button">Meet your next creative partner<ArrowUpRight size={19}/></Link></motion.div></section>
   <section className="expertise-section"><motion.div {...reveal} className="section-heading"><div><span className="section-kicker">02 / WHAT WE DO</span><h2>Consider it<br/><span>taken care of.</span></h2></div><p>One studio. From the first spark<br/>to the next big thing.</p></motion.div><div className="service-list">{services.map((s,i)=><motion.div {...reveal} key={s.title}><Link href={s.url} className="service-row"><span className="service-number">0{i+1}</span><div><h3>{s.title}</h3><span className="service-tags">{s.tags}</span></div><p>{s.text}</p><MoveUpRight className="service-arrow"/></Link></motion.div>)}</div></section>
   <section className="process-section"><span className="section-kicker">03 / A CLEAR WAY FORWARD</span><div className="process-grid">{[['Discover','We ask the right questions. Together, we find the opportunity and define what matters.'],['Create','We explore, prototype, and shape an experience around the people who will use it.'],['Build & evolve','We bring it to life, sweat the details, and stay with you as your product grows.']].map(([title,text],i)=><motion.div {...reveal} key={title}><span>0{i+1} /</span><h3>{title}</h3><p>{text}</p></motion.div>)}</div></section>
   <section className="prefooter"><Asterisk/><span>YOUR NEXT CHAPTER STARTS WITH A CONVERSATION.</span><ArrowDown/></section>
-</div>}
+{chooser}</div>}
