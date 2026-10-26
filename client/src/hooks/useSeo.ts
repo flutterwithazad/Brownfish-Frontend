@@ -41,13 +41,13 @@ export function useSeo() {
     upsertMeta("property", "og:url", seo.canonical);
     upsertMeta("property", "og:title", seo.title);
     upsertMeta("property", "og:description", seo.description);
-    upsertMeta("property", "og:image", "https://brownfishtech.com/opengraph.jpg");
+    upsertMeta("property", "og:image", "https://brownfishtech.com/brownfish-social-2026.png");
 
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertMeta("name", "twitter:url", seo.canonical);
     upsertMeta("name", "twitter:title", seo.title);
     upsertMeta("name", "twitter:description", seo.description);
-    upsertMeta("name", "twitter:image", "https://brownfishtech.com/opengraph.jpg");
+    upsertMeta("name", "twitter:image", "https://brownfishtech.com/brownfish-social-2026.png");
 
     const prev = document.head.querySelector("script[data-seo-jsonld]");
     if (prev) prev.remove();

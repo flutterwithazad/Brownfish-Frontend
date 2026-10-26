@@ -25,9 +25,9 @@ function serviceSchema(path: string, name: string, description: string) {
 }
 
 export const DEFAULT_SEO: PageSeo = {
-  title: "Brown Fish Technologies | Custom Software, Mobile Apps & MVPs",
+  title: "Brownfish | Websites, Mobile Apps & Digital Experiences",
   description:
-    "Brown Fish Technologies builds scalable web apps, Flutter mobile apps and MVPs for startups and enterprises. 12+ years, 200+ projects delivered.",
+    "Good ideas. Bold digital. We design and build websites, mobile apps, and digital experiences. Independent studio in New Delhi, working worldwide.",
   canonical: `${SITE}/`,
 };
 
