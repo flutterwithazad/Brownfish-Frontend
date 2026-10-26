@@ -1,3 +1,4 @@
+import { suggestCountry } from "@/lib/country";
 import { PageHero } from "@/components/InnerPage";
 import { Mail, Phone, MapPin, Send, Globe, Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useState, useEffect } from "react";
-import { parsePhoneNumber, getCountries, getCountryCallingCode } from "libphonenumber-js";
+import { parsePhoneNumberFromString, getCountries, getCountryCallingCode } from "libphonenumber-js";
 import emailjs from '@emailjs/browser';
 import {
   Form,
@@ -89,32 +90,18 @@ const getAllCountries = () => {
     .sort((a, b) => a.name.localeCompare(b.name));
 };
 
-// Detect user's country from browser locale or timezone
-const detectUserCountry = (): string => {
-  try {
-    // Try to get from browser language/locale
-    const locale = navigator.language || (navigator as any).userLanguage;
-    if (locale && locale.includes("-")) {
-      const countryCode = locale.split("-")[1].toUpperCase();
-      const allCountries = getCountries();
-      if (allCountries.includes(countryCode)) {
-        return countryCode;
-      }
-    }
-  } catch (e) {
-    // Fallback if locale detection fails
-  }
-
-  // Default to US if detection fails
-  return "US";
+// Device settings provide a suggestion, not a verified physical location.
+const detectUserCountry = () => {
+  let timeZone = '';
+  try { timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch { /* Fall back to locale. */ }
+  return suggestCountry(timeZone, navigator.languages?.length ? navigator.languages : [navigator.language]);
 };
 
 export default function Contact() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const [detectedCountry, setDetectedCountry] = useState<string>("");
+  const [countrySource, setCountrySource] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
-  const [userCountry, setUserCountry] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const allCountries = getAllCountries();
 
@@ -136,35 +123,20 @@ export default function Contact() {
   // Auto-detect user's country on component mount
   useEffect(() => {
     const detected = detectUserCountry();
-    setUserCountry(detected);
-    setDetectedCountry(detected);
-    form.setValue("countryCode", detected);
+    setCountrySource(detected.source);
+    form.setValue("countryCode", detected.country);
   }, [form]);
 
-  // Auto-detect country from phone number
+  // Only an explicit international number can override the chosen country.
   useEffect(() => {
-    if (phoneValue.length > 0) {
-      try {
-        const countryCode = form.getValues("countryCode");
-        const parsed = parsePhoneNumber(phoneValue, countryCode as any);
-
-        if (parsed && parsed.country) {
-          setDetectedCountry(parsed.country);
-          form.setValue("countryCode", parsed.country);
-        }
-      } catch (error) {
-        try {
-          const parsed = parsePhoneNumber(phoneValue);
-          if (parsed && parsed.country) {
-            setDetectedCountry(parsed.country);
-            form.setValue("countryCode", parsed.country);
-          }
-        } catch (e) {
-          // Could not detect
-        }
-      }
+    if (!phoneValue.trim().startsWith('+')) return;
+    const parsed = parsePhoneNumberFromString(phoneValue);
+    if (parsed?.country && parsed.isValid()) {
+      form.setValue("countryCode", parsed.country);
+      setCountrySource('Selected from your international phone number');
     }
   }, [phoneValue, form]);
+  const selectedCountryCode = form.watch("countryCode");
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
@@ -186,7 +158,7 @@ export default function Contact() {
 
         company: values.company || "N/A",
 
-        phone: `${countryCode} ${values.phone}`,
+        phone: parsePhoneNumberFromString(values.phone, values.countryCode as any)?.number || `${countryCode} ${values.phone}`,
         country: countryName,
 
         message: values.message,
@@ -213,9 +185,8 @@ export default function Contact() {
       form.reset();
       setPhoneValue("");
       const detected = detectUserCountry();
-      setUserCountry(detected);
-      setDetectedCountry(detected);
-      form.setValue("countryCode", detected);
+      setCountrySource(detected.source);
+      form.setValue("countryCode", detected.country);
     } catch (error) {
       console.error("FAILED...", error);
       toast({
@@ -368,7 +339,8 @@ export default function Contact() {
                                         value={`${country.name} ${country.callingCode}`}
                                         key={country.code}
                                         onSelect={() => {
-                                          form.setValue("countryCode", country.code);
+                                          form.setValue("countryCode", country.code, { shouldValidate: true });
+                                          setCountrySource("Selected by you");
                                           setOpen(false);
                                         }}
                                         className="text-neutral-300 aria-selected:bg-neutral-800 aria-selected:text-white"
@@ -420,10 +392,10 @@ export default function Contact() {
                     />
                   </div>
 
-                  {userCountry && (
+                  {selectedCountryCode && (
                     <div className="flex items-center gap-2 text-xs text-amber-500">
                       <Globe className="w-3 h-3" />
-                      <span>Auto-detected: {allCountries.find(c => c.code === userCountry)?.name} ({userCountry})</span>
+                      <span>{allCountries.find(c => c.code === selectedCountryCode)?.name} ({selectedCountryCode}) — {countrySource}. You can change the country above.</span>
                     </div>
                   )}
                 </div>
