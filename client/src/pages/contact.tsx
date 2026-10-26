@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/InnerPage";
 import { Mail, Phone, MapPin, Send, Globe, Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -228,15 +229,16 @@ export default function Contact() {
   }
 
   return (
-    <div className="animate-in fade-in duration-500 py-20 md:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div className="inner-page contact-page">
+      <PageHero eyebrow="03 / START A CONVERSATION" title="A good idea starts" accent="with a hello." description="Tell us what you’re thinking. A new product, a fresh direction, or something you haven’t quite put into words yet."/>
+      <div className="contact-content">
+        <div className="contact-grid">
 
           {/* Contact Info */}
           <div>
-            <SectionTitle subtitle="Get in Touch">Start Your Project</SectionTitle>
+            <span className="section-kicker">LET’S MAKE SOMETHING MATTER.</span><h2 className="contact-heading">Your next chapter.<br/><em>Let’s write it together.</em></h2>
             <p className="text-neutral-400 text-lg mb-12 leading-relaxed">
-              Ready to build something robust? We are currently accepting new projects for the upcoming quarter. Tell us about your technical challenges.
+              Share your idea and we’ll talk through the possibilities, the practicalities, and the right way forward. You’ll speak directly with the people building your product.
             </p>
 
             <div className="space-y-8">
@@ -246,7 +248,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">Call Us</h4>
-                  <a href="tel:+919182234149804" className="text-neutral-400 hover:text-amber-500 transition-colors">+91 7827149804</a>
+                  <a href="tel:+917827149804" className="text-neutral-400 hover:text-amber-500 transition-colors">+91 7827149804</a>
                 </div>
               </div>
 
@@ -277,8 +279,8 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-neutral-900 border border-neutral-800 p-8 md:p-10 rounded-lg">
-            <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
+          <div className="contact-form-panel">
+            <span className="section-kicker">01 / YOUR PROJECT BRIEF</span><h3 className="contact-form-title">Tell us a little more.</h3><p className="contact-form-note">A few details to get the conversation going. No perfect brief required.</p>
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -290,7 +292,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel className="text-neutral-300">Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20" {...field} />
+                          <Input placeholder="Your name" className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -303,7 +305,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel className="text-neutral-300">Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="john@company.com" className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20" {...field} />
+                          <Input type="email" autoComplete="email" placeholder="you@company.com" className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -403,7 +405,7 @@ export default function Contact() {
                           <FormLabel className="text-neutral-300">Phone Number</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="7827149804"
+                              type="tel" autoComplete="tel-national" placeholder="Phone number"
                               className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20"
                               value={phoneValue}
                               onChange={(e) => {
@@ -433,7 +435,7 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-neutral-300">Project Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
                               <SelectValue placeholder="Select type" />
@@ -461,7 +463,7 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-neutral-300">Budget Range (USD)</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-600 focus:ring-amber-600/20">
                               <SelectValue placeholder="Select range" />
@@ -515,10 +517,11 @@ export default function Contact() {
         </div>
 
         {/* Map Section */}
-        <div className="mt-20">
-          <SectionTitle subtitle="Location">Visit Our HQ</SectionTitle>
+        <div className="contact-location">
+          <div className="location-heading"><div><span className="section-kicker">BASED IN NEW DELHI. CONNECTED EVERYWHERE.</span><h2>Come say hello.</h2></div><p>Flat 101, Tigri DDA Flats<br/>South Delhi — 110080, India</p></div>
           <div className="w-full h-[450px] bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 relative z-0">
             <iframe
+              title="Brown Fish Technologies office location"
               src="https://maps.google.com/maps?q=BrownFish+Technologies+South+Delhi&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"

@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/InnerPage";
 import { motion } from "framer-motion";
 import { 
   Smartphone, 
@@ -17,7 +18,7 @@ import { Button } from "@/components/ui/button";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
 };
 
 const staggerContainer = {
@@ -50,9 +51,10 @@ export default function PortfolioBrochure() {
   };
 
   return (
-    <div className="bg-[#0d1522] min-h-screen py-12 px-4 selection:bg-orange-500/30">
+    <div className="inner-page brochure-page">
+<PageHero eyebrow="STUDIO / PORTFOLIO" title="A closer look." accent="At what we make." description="Explore our product thinking, technical craft, and selected mobile experiences."/>
       {/* Toolbar */}
-      <div className="fixed top-8 right-8 z-[100] flex gap-3">
+      <div className="brochure-toolbar">
         <Button 
           variant="outline" 
           onClick={copyCode}

@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/InnerPage";
 import { Database, Server, Network, ShieldCheck, Cpu, HardDrive, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -16,40 +17,9 @@ const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subti
 
 export default function BackendArchitecture() {
     return (
-        <div className="animate-in fade-in duration-500 pt-20 pb-32">
+        <div className="inner-page service-detail">
             {/* Hero */}
-            <section className="relative py-20 md:py-32 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                    <div className="absolute top-1/2 left-1/2 w-3/4 h-3/4 bg-amber-600/5 opacity-20 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                    <div className="max-w-3xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 mb-8">
-                            <Server className="w-4 h-4 text-amber-600" />
-                            <span className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Cloud & DIY Infrastructure</span>
-                        </div>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight mb-8">
-                            Robust Backends, <span className="text-amber-600">Unbreakable Security.</span>
-                        </h1>
-                        <p className="text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed font-light">
-                            We design and implement secure, scalable backend systems. Whether microservices or modular monoliths, we ensure your data is safe and your uptime is 99.9%.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white border-0 text-base h-14 px-8">
-                                <Link href="/contact">
-                                    Book Free Consultation
-                                </Link>
-                            </Button>
-                            <Button asChild size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white hover:bg-transparent text-base h-14 px-8">
-                                <Link href="/projects">
-                                    View Backend Case Studies
-                                </Link>
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PageHero back eyebrow="SYSTEMS / BACKEND & APIs" title="Strong foundations." accent="Room to grow." description="Reliable infrastructure behind remarkable experiences. APIs, databases, and cloud systems designed around your next chapter."/>
 
             {/* Features */}
             <section className="py-24 bg-neutral-900/50 border-y border-neutral-800">

@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/InnerPage";
 import { Megaphone, Search, BarChart3, Users, Target, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -48,39 +49,9 @@ const tools = [
 
 export default function DigitalMarketing() {
     return (
-        <div className="animate-in fade-in duration-500">
+        <div className="inner-page service-detail">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 bg-neutral-900">
-                    <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-amber-600/10 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent"></div>
-                </div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl">
-                        <span className="text-amber-600 font-mono tracking-wider uppercase text-sm mb-4 block">Digital Growth Agency</span>
-                        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-8">
-                            We Don't Just Drive Traffic. <br />
-                            <span className="text-amber-600">We Drive Revenue.</span>
-                        </h1>
-                        <p className="text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed font-light">
-                            Stop wasting budget on invisible marketing. We use data, creativity, and technology to put your brand in front of the right audience at the right time.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white border-0 text-base h-14 px-8">
-                                <Link href="/contact">
-                                    Get Free Marketing Audit
-                                </Link>
-                            </Button>
-                            <Button asChild size="lg" variant="outline" className="border-neutral-700 text-neutral-300 hover:border-amber-600 hover:text-white hover:bg-transparent text-base h-14 px-8">
-                                <Link href="/projects">
-                                    View Success Stories
-                                </Link>
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PageHero back eyebrow="GROWTH / DIGITAL MARKETING" title="Make your mark." accent="Find your people." description="Search, content, and campaigns that connect your business with the right audience. Considered strategy. Clear direction."/>
 
             {/* Services Grid */}
             <section className="py-24 bg-neutral-900 border-y border-neutral-800">

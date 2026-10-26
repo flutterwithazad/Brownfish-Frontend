@@ -1,102 +1,15 @@
-import { Smartphone, Code2, Database, Rocket, PenTool, Megaphone } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
-
-const SectionTitle = ({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) => (
-  <div className="mb-12 md:mb-16">
-    {subtitle && (
-      <span className="text-sm font-mono tracking-wider uppercase text-amber-600 mb-3 block">
-        {subtitle}
-      </span>
-    )}
-    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{children}</h2>
-    <div className="h-1 w-20 bg-amber-600 mt-6"></div>
-  </div>
-);
-
-
-
-interface ServiceItemProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  technologies: string[];
-  href: string;
-}
-
-const ServiceCard = ({ icon: Icon, title, description, technologies, href }: ServiceItemProps) => (
-  <Link href={href}>
-    <div className="bg-neutral-900 border border-neutral-800 p-8 hover:border-amber-600/30 transition-all duration-300 group h-full flex flex-col cursor-pointer">
-      <div className="w-12 h-12 bg-amber-600/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-6 h-6 text-amber-600" />
-      </div>
-      <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-      <p className="text-neutral-400 mb-6 flex-grow leading-relaxed">{description}</p>
-      <div>
-        <p className="text-xs font-mono text-neutral-500 uppercase tracking-wide mb-3">Tech Stack</p>
-        <div className="flex flex-wrap gap-2">
-          {technologies.map((tech) => (
-            <Badge key={tech} variant="outline" className="border-neutral-700 text-neutral-300 bg-neutral-800/50 hover:bg-neutral-800 hover:text-white transition-colors">
-              {tech}
-            </Badge>
-          ))}
-        </div>
-      </div>
-    </div>
-  </Link>
-);
-
-export default function Services() {
-  return (
-    <div className="animate-in fade-in duration-500 py-20 md:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle subtitle="Our Expertise">Technical Services</SectionTitle>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ServiceCard
-            icon={Smartphone}
-            title="Mobile Application Development"
-            description="Native-performance cross-platform apps. We don't just wrap websites; we build responsive, offline-first mobile experiences that pass App Store reviews on the first try."
-            technologies={['Flutter', 'React Native', 'iOS/Swift', 'Android/Kotlin']}
-            href="/services/mobile-development"
-          />
-          <ServiceCard
-            icon={Code2}
-            title="Modern Web Applications"
-            description="SPA and SSR applications built for speed and SEO. From complex dashboards to high-traffic consumer platforms, we handle the full frontend lifecycle."
-            technologies={['React', 'Next.js', 'TypeScript', 'Tailwind CSS']}
-            href="/services/web-applications"
-          />
-          <ServiceCard
-            icon={Database}
-            title="Backend & API Architecture"
-            description="Robust server-side solutions. We design database schemas, REST/GraphQL APIs, and microservices that can handle spikes in load without crashing."
-            technologies={['Node.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS']}
-            href="/services/backend-architecture"
-          />
-          <ServiceCard
-            icon={Rocket}
-            title="MVP for Startups"
-            description="Rapid prototyping for validation. We help you cut feature creep and launch a solid, scalable Minimum Viable Product in 8-12 weeks."
-            technologies={['Supabase', 'Firebase', 'Next.js', 'Vercel']}
-            href="/services/mvp-development"
-          />
-          <ServiceCard
-            icon={PenTool}
-            title="UI/UX Designing"
-            description="Intuitive and engaging user interfaces. We design product experiences that look beautiful and work seamlessly."
-            technologies={['Figma', 'Adobe XD', 'Prototyping', 'User Research']}
-            href="/contact"
-          />
-          <ServiceCard
-            icon={Megaphone}
-            title="Digital Marketing"
-            description="Growth-focused digital strategies. We increase visibility and drive conversions through targeted SEO and advertising campaigns."
-            technologies={['SEO', 'Google Ads', 'Social Media', 'Content Marketing']}
-            href="/services/digital-marketing"
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
+import { Smartphone, Code2, Database, Rocket, PenTool, Megaphone, ArrowUpRight } from 'lucide-react';
+import { Link } from 'wouter';
+import { motion } from 'framer-motion';
+import { PageHero, TiltSurface, InnerCallout } from '@/components/InnerPage';
+const services = [
+  {icon:Code2, title:'Web experiences', description:'Fast, considered websites and web applications. From your first impression to your most complex dashboard.', tech:['React','Next.js','TypeScript','Tailwind CSS'], href:'web-applications', mark:'</>'},
+  {icon:Smartphone, title:'Mobile products', description:'Native-feeling iOS and Android experiences. Built for the small screen, designed for a bigger impact.', tech:['Flutter','React Native','iOS / Swift','Android / Kotlin'], href:'mobile-development', mark:'◧'},
+  {icon:Database, title:'Backend & architecture', description:'The invisible work that makes everything feel effortless. Reliable APIs, databases, and cloud infrastructure.', tech:['Node.js','PostgreSQL','Redis','Docker','AWS'], href:'backend-architecture', mark:'≋'},
+  {icon:Rocket, title:'MVPs & new ventures', description:'Turn your “what if” into something people can use. Validate the idea, focus the scope, and launch with confidence.', tech:['Supabase','Firebase','Next.js','Vercel'], href:'mvp-development', mark:'↗'},
+  {icon:PenTool, title:'Digital product design', description:'Clear thinking. Beautiful interfaces. User research, prototyping, and visual systems that put people first.', tech:['Figma','User research','Prototyping','UI / UX'], href:'/contact', mark:'✳'},
+  {icon:Megaphone, title:'Digital growth', description:'Get the right attention. Search, content, and targeted campaigns that connect your product with its audience.', tech:['SEO','Google Ads','Social media','Content'], href:'digital-marketing', mark:'◎'},
+];
+export default function Services(){return <div className="inner-page services-page"><PageHero eyebrow="01 / OUR EXPERTISE" title="From first spark." accent="To what’s next." description="Strategy, design, and development. One close-knit studio to take your digital product further."/>
+<section className="inner-section"><div className="inner-section-intro"><span className="section-kicker">GOOD THINKING. GREAT EXECUTION.</span><p>Different disciplines.<br/>One shared obsession with the details.</p></div><div className="expertise-grid">{services.map((service,index)=><motion.div key={service.title} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.45}}><TiltSurface><Link href={service.href.startsWith('/')?service.href:`/services/${service.href}`} className={`expertise-card expertise-tone-${index%3}`}><div className="expertise-card-top"><span>0{index+1} /</span><ArrowUpRight size={22}/></div><div className="expertise-object" aria-hidden="true">{service.mark}</div><service.icon className="expertise-small-icon" size={22}/><h2>{service.title}</h2><p>{service.description}</p><div className="expertise-tech">{service.tech.map(t=><span key={t}>{t}</span>)}</div></Link></TiltSurface></motion.div>)}</div></section>
+<section className="collaboration-band"><span className="section-kicker">HOW WE FIT IN</span><h2>Your ambition.<br/><em>Our full attention.</em></h2><div>{[['A focused project','A defined scope, a clear plan, and a team that cares about every detail.'],['A product partnership','An ongoing creative and engineering partner as your product evolves.'],['An extension of your team','Specialist design and development support, right where you need it.']].map(([title,text])=><article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div></section><InnerCallout title="Let’s find your next move."/></div>}

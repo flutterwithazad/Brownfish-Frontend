@@ -1,15 +1,17 @@
+import { PageHero } from "@/components/InnerPage";
 import { Scale, Gavel, AlertCircle } from "lucide-react";
 import { Link } from "wouter";
 
 export default function TermsOfService() {
     return (
-        <div className="animate-in fade-in duration-500 py-20 md:py-32">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="inner-page legal-page">
+<PageHero compact eyebrow="STUDIO / LEGAL" title="Clear terms." accent="A shared understanding." description="The terms that govern your use of the Brown Fish Technologies website and services."/>
+            <div className="legal-content">
                 <div className="mb-12">
                     <span className="text-sm font-mono tracking-wider uppercase text-amber-600 mb-3 block">
                         Legal
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">Terms of Service</h1>
+                    <h2 className="legal-document-title text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">Terms of Service</h2>
                     <p className="text-neutral-400">Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
                     <div className="h-1 w-20 bg-amber-600 mt-6"></div>
                 </div>
